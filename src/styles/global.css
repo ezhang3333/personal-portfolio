@@ -1,0 +1,57 @@
+:root {
+  --grid-color: rgba(208, 220, 232, 0.5);
+  --grid-size: 40px;
+  --accent: #1a1a1a;
+  --text-secondary: #555;
+  --border: #ccc;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --nav-height: 64px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Ubuntu', sans-serif;
+  color: var(--accent);
+}
+
+body {
+  background-color: #ffffff;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent calc(var(--grid-size) - 1px),
+      var(--grid-color) calc(var(--grid-size) - 1px),
+      var(--grid-color) var(--grid-size)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent calc(var(--grid-size) - 1px),
+      var(--grid-color) calc(var(--grid-size) - 1px),
+      var(--grid-color) var(--grid-size)
+    );
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}

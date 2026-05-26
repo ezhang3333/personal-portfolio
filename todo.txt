@@ -1,0 +1,5 @@
+  To fill in later:
+  - Drop SVGs into src/assets/ and set src="" on each <img class="card-icon/github-icon/arrow-icon"> in the components
+  - Replace placeholder text in HomeView.vue, AboutView.vue, and ProjectCard.vue
+  - Add a real photo to AboutView.vue
+  - Link Resume card to an actual PDF
