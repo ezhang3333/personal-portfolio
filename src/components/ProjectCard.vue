@@ -1,135 +1,293 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
-const isExpanded = ref(false)
-const toggle = () => {
+const props = withDefaults(
+  defineProps<{
+    title: string
+    summary: string
+    details: string
+    githubHref: string
+    visualVariant?: 'ember' | 'grain' | 'field'
+    initiallyExpanded?: boolean
+  }>(),
+  {
+    visualVariant: 'ember',
+    initiallyExpanded: false,
+  },
+)
+
+const isExpanded = ref(props.initiallyExpanded)
+
+const visualClass = computed(() => `variant-${props.visualVariant}`)
+
+function toggleExpanded() {
   isExpanded.value = !isExpanded.value
 }
 </script>
 
 <template>
   <article class="project-card" :class="{ 'is-expanded': isExpanded }">
-    <div class="card-image"></div>
-    <div class="card-body">
-      <p class="card-caption">
-        Project description placeholder. Add details about what this project does,
-        the technologies used, and what you learned building it. This text expands
-        when you click the arrow below to reveal the full description.
-      </p>
-      <div class="card-actions">
-        <a href="#" class="github-btn">
-          <img class="github-icon" src="" alt="GitHub" />
-          View on GitHub
-        </a>
+    <div class="visual-panel" :class="visualClass" aria-hidden="true">
+      <span class="visual-grid"></span>
+      <span class="visual-band"></span>
+    </div>
+
+    <div class="content-panel">
+      <div class="title-row">
         <button
-          class="toggle-btn"
-          :aria-label="isExpanded ? 'Collapse details' : 'Expand details'"
-          @click="toggle"
+          type="button"
+          class="title-toggle"
+          :aria-expanded="isExpanded"
+          @click="toggleExpanded"
         >
-          <img class="arrow-icon" src="" alt="Toggle details" />
+          <span class="project-title">{{ title }}</span>
+          <span class="arrow-mark" aria-hidden="true"></span>
         </button>
+
+        <a
+          class="github-link"
+          :href="githubHref"
+          target="_blank"
+          rel="noopener"
+          aria-label="Open project GitHub link"
+        >
+          <span class="github-mark" aria-hidden="true">GH</span>
+        </a>
       </div>
+
+      <p class="card-copy">
+        {{ isExpanded ? details : summary }}
+      </p>
     </div>
   </article>
 </template>
 
 <style scoped>
 .project-card {
-  border: 1px solid var(--border);
-  background: var(--card-bg);
+  position: relative;
+  width: min(100%, 350px);
+  height: 350px;
   overflow: hidden;
-  transition: box-shadow 0.2s ease;
+  border: 1px solid var(--line-soft);
+  border-radius: 1.75rem;
+  background: rgba(255, 251, 245, 0.92);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .project-card:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-lifted);
 }
 
-/* Image area — shrinks when expanded */
-.card-image {
-  height: 210px;
-  background: #e4e4e4;
-  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+.visual-panel {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
 }
 
-.project-card.is-expanded .card-image {
-  height: 120px;
+.variant-ember {
+  background:
+    radial-gradient(circle at 22% 24%, rgba(255, 243, 231, 0.85), transparent 18%),
+    linear-gradient(135deg, rgba(158, 100, 62, 0.92), rgba(101, 66, 46, 0.95));
 }
 
-.card-body {
-  padding: 1.25rem 1.5rem;
+.variant-grain {
+  background:
+    radial-gradient(circle at 72% 25%, rgba(254, 241, 224, 0.72), transparent 14%),
+    linear-gradient(135deg, rgba(109, 84, 58, 0.98), rgba(73, 52, 40, 0.98));
+}
+
+.variant-field {
+  background:
+    radial-gradient(circle at 30% 68%, rgba(247, 235, 215, 0.7), transparent 18%),
+    linear-gradient(160deg, rgba(128, 92, 60, 0.94), rgba(87, 60, 43, 0.98));
+}
+
+.visual-grid,
+.visual-band {
+  position: absolute;
+  pointer-events: none;
+}
+
+.visual-grid {
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.7;
+}
+
+.visual-band {
+  inset: auto 0 5.7rem 0;
+  height: 1px;
+  background: rgba(255, 247, 238, 0.46);
+}
+
+.content-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 35%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.8rem;
+  padding: 1.15rem 1.15rem 1rem;
+  background:
+    linear-gradient(180deg, rgba(255, 251, 244, 0.9), rgba(255, 248, 240, 0.98)),
+    rgba(255, 250, 244, 0.96);
+  border-top: 1px solid rgba(111, 74, 51, 0.12);
+  transition:
+    height 220ms ease,
+    background 220ms ease;
 }
 
-/* Caption — clamped to 2 lines by default, fully shown when expanded */
-.card-caption {
-  font-size: 0.875rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.project-card.is-expanded .card-caption {
-  -webkit-line-clamp: unset;
-  overflow: visible;
-}
-
-.card-actions {
+.title-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
 }
 
-.github-btn {
-  display: flex;
+.title-toggle {
+  flex: 1;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  border: 1px solid var(--border);
-  padding: 0.4rem 0.85rem;
+  gap: 0.65rem;
+  padding: 0;
+  border: 0;
   background: transparent;
-  transition: background 0.18s;
+  text-align: left;
   cursor: pointer;
 }
 
-.github-btn:hover {
-  background: #f0f0f0;
+.project-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
 }
 
-.github-icon {
-  width: 15px;
-  height: 15px;
+.arrow-mark {
+  position: relative;
+  width: 0.85rem;
+  height: 0.85rem;
+  flex: 0 0 auto;
+  transition: transform 220ms ease;
 }
 
-.toggle-btn {
-  background: none;
-  border: 1px solid var(--border);
-  cursor: pointer;
-  padding: 0.4rem;
-  display: flex;
+.arrow-mark::before,
+.arrow-mark::after {
+  content: '';
+  position: absolute;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.arrow-mark::before {
+  top: 50%;
+  left: 0.1rem;
+  width: 0.65rem;
+  height: 1px;
+}
+
+.arrow-mark::after {
+  top: 0.26rem;
+  right: 0.1rem;
+  width: 1px;
+  height: 0.65rem;
+}
+
+.github-link {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.18s;
+  width: 2rem;
+  height: 2rem;
+  margin-left: auto;
+  border: 1px solid rgba(111, 74, 51, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.52);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
 }
 
-.toggle-btn:hover {
-  background: #f0f0f0;
+.github-link:hover,
+.github-link:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.8);
 }
 
-.arrow-icon {
-  width: 15px;
-  height: 15px;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+.github-mark {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
 }
 
-.project-card.is-expanded .arrow-icon {
-  transform: rotate(180deg);
+.card-copy {
+  max-width: 26ch;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.project-card.is-expanded .visual-panel {
+  opacity: 0.16;
+  transform: scale(1.03);
+}
+
+.project-card.is-expanded .content-panel {
+  height: 100%;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 243, 0.92), rgba(255, 247, 239, 0.98)),
+    rgba(255, 249, 242, 0.97);
+}
+
+.project-card.is-expanded .arrow-mark {
+  transform: rotate(45deg);
+}
+
+.project-card.is-expanded .card-copy {
+  max-width: none;
+  overflow: auto;
+  -webkit-line-clamp: unset;
+  padding-right: 0.35rem;
+}
+
+.project-card.is-expanded .card-copy::-webkit-scrollbar {
+  width: 0.35rem;
+}
+
+.project-card.is-expanded .card-copy::-webkit-scrollbar-thumb {
+  background: rgba(111, 74, 51, 0.22);
+  border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+  .project-card {
+    width: min(100%, 320px);
+    height: 320px;
+  }
+
+  .card-copy {
+    max-width: none;
+  }
 }
 </style>
