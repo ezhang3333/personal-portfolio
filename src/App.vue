@@ -42,6 +42,14 @@ const projectYears: ProjectYear[] = [
         githubHref: '#',
         visualVariant: 'field',
       },
+      {
+        title: 'Placeholder project',
+        summary: 'Short summary to replace later.',
+        details:
+          'Longer description that I will fill in once the project is real.',
+        githubHref: '#',
+        visualVariant: 'ember',
+      },
     ],
   },
   {
@@ -85,7 +93,6 @@ const projectYears: ProjectYear[] = [
   <main class="landing-page">
     <section class="hero-section">
       <div class="section-shell hero-shell">
-        <p class="section-kicker">Ethan Zhang</p>
         <div class="hero-copy">
           <h1>Hey, I&apos;m Ethan.</h1>
           <p class="hero-lead">
@@ -103,8 +110,7 @@ const projectYears: ProjectYear[] = [
     <section class="timeline-section" aria-labelledby="timeline-title">
       <div class="section-shell timeline-shell">
         <div class="section-heading timeline-heading">
-          <p class="section-kicker">Selected work</p>
-          <h2 id="timeline-title">A center-rail timeline of what I&apos;ve been building.</h2>
+          <h2 id="timeline-title">Projects</h2>
         </div>
 
         <div class="timeline">
@@ -113,30 +119,20 @@ const projectYears: ProjectYear[] = [
             :key="yearGroup.year"
             class="year-block"
           >
-            <div class="year-node">
-              <span class="year-pill">{{ yearGroup.year }}</span>
+            <div class="year-marker">
+              <span class="year-label">{{ yearGroup.year }}</span>
             </div>
 
-            <div
-              v-for="(project, projectIndex) in yearGroup.projects"
-              :key="`${yearGroup.year}-${project.title}`"
-              class="timeline-row"
-              :class="projectIndex % 2 === 0 ? 'is-left' : 'is-right'"
-            >
-              <div class="timeline-card-slot">
-                <ProjectCard
-                  :title="project.title"
-                  :summary="project.summary"
-                  :details="project.details"
-                  :github-href="project.githubHref"
-                  :visual-variant="project.visualVariant"
-                />
-              </div>
-
-              <div class="timeline-center" aria-hidden="true">
-                <span class="timeline-dot"></span>
-                <span class="timeline-connector"></span>
-              </div>
+            <div class="projects-grid">
+              <ProjectCard
+                v-for="project in yearGroup.projects"
+                :key="`${yearGroup.year}-${project.title}`"
+                :title="project.title"
+                :summary="project.summary"
+                :details="project.details"
+                :github-href="project.githubHref"
+                :visual-variant="project.visualVariant"
+              />
             </div>
           </div>
         </div>
@@ -270,111 +266,62 @@ const projectYears: ProjectYear[] = [
 .timeline {
   position: relative;
   display: grid;
-  gap: 3.5rem;
+  gap: 4.5rem;
 }
 
 .timeline::before {
   content: '';
   position: absolute;
-  top: 1rem;
-  bottom: 1rem;
-  left: 50%;
-  width: 2px;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 25%;
+  width: 1px;
   background: linear-gradient(180deg, var(--line-strong), rgba(111, 74, 51, 0.18));
-  transform: translateX(-50%);
 }
 
 .year-block {
   display: grid;
-  gap: 1.5rem;
+  grid-template-columns: 25% minmax(0, 1fr);
+  align-items: start;
+  column-gap: 0;
 }
 
-.year-node {
+.year-marker {
   position: relative;
-  display: grid;
-  place-items: center;
-  z-index: 1;
+  grid-column: 1;
+  padding-right: 1.5rem;
+  text-align: right;
 }
 
-.year-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 7rem;
-  padding: 0.85rem 1.5rem;
-  border: 1px solid var(--line-strong);
-  border-radius: 1.1rem;
-  background: rgba(255, 248, 239, 0.96);
-  box-shadow: var(--shadow-soft);
+.year-label {
   font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent);
 }
 
-.timeline-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 7rem minmax(0, 1fr);
-  align-items: center;
-}
-
-.timeline-card-slot {
-  display: flex;
-}
-
-.timeline-center {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 1px;
-}
-
-.timeline-dot {
-  width: 0.9rem;
-  height: 0.9rem;
+.year-marker::after {
+  content: '';
+  position: absolute;
+  top: 0.35rem;
+  right: 0;
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 999px;
   background: #cc7f52;
   border: 2px solid rgba(255, 249, 240, 0.95);
   box-shadow: 0 0 0 1px var(--line-strong);
+  transform: translateX(50%);
   z-index: 1;
 }
 
-.timeline-connector {
-  position: absolute;
-  top: 50%;
-  width: 4.25rem;
-  height: 1px;
-  background: rgba(111, 74, 51, 0.24);
-  transform: translateY(-50%);
-}
-
-.timeline-row.is-left .timeline-card-slot {
-  grid-column: 1;
-  justify-content: flex-end;
-  padding-right: 1.25rem;
-}
-
-.timeline-row.is-left .timeline-center {
+.projects-grid {
   grid-column: 2;
-}
-
-.timeline-row.is-left .timeline-connector {
-  right: calc(50% + 0.45rem);
-}
-
-.timeline-row.is-right .timeline-card-slot {
-  grid-column: 3;
-  justify-content: flex-start;
-  padding-left: 1.25rem;
-}
-
-.timeline-row.is-right .timeline-center {
-  grid-column: 2;
-}
-
-.timeline-row.is-right .timeline-connector {
-  left: calc(50% + 0.45rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 350px));
+  gap: 1.75rem;
+  padding-left: 2rem;
+  justify-content: start;
 }
 
 .contact-shell {
@@ -440,21 +387,26 @@ const projectYears: ProjectYear[] = [
   color: var(--text-secondary);
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1024px) {
   .timeline-shell {
     width: min(100% - 2rem, 1320px);
   }
 
-  .timeline-row {
-    grid-template-columns: minmax(0, 1fr) 5.5rem minmax(0, 1fr);
+  .timeline::before {
+    left: 18%;
   }
 
-  .timeline-connector {
-    width: 3.1rem;
+  .year-block {
+    grid-template-columns: 18% minmax(0, 1fr);
+  }
+
+  .projects-grid {
+    gap: 1.25rem;
+    padding-left: 1.5rem;
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 760px) {
   .hero-section {
     padding-top: 3.25rem;
   }
@@ -464,45 +416,37 @@ const projectYears: ProjectYear[] = [
     text-align: left;
   }
 
+  .timeline {
+    gap: 3rem;
+  }
+
   .timeline::before {
     left: 1.05rem;
-    transform: none;
   }
 
-  .year-node {
-    justify-items: start;
-    padding-left: 0;
+  .year-block {
+    grid-template-columns: 1fr;
+    row-gap: 1.25rem;
   }
 
-  .year-pill {
-    margin-left: 0;
-  }
-
-  .timeline-row {
-    grid-template-columns: 2.1rem minmax(0, 1fr);
-  }
-
-  .timeline-card-slot,
-  .timeline-row.is-left .timeline-card-slot,
-  .timeline-row.is-right .timeline-card-slot {
-    grid-column: 2;
-    justify-content: flex-start;
-    padding-left: 1rem;
-    padding-right: 0;
-  }
-
-  .timeline-center,
-  .timeline-row.is-left .timeline-center,
-  .timeline-row.is-right .timeline-center {
+  .year-marker {
     grid-column: 1;
-    justify-content: flex-start;
+    padding-left: 2rem;
+    padding-right: 0;
+    text-align: left;
   }
 
-  .timeline-row.is-left .timeline-connector,
-  .timeline-row.is-right .timeline-connector {
-    left: 1rem;
+  .year-marker::after {
+    top: 0.5rem;
     right: auto;
-    width: 1.4rem;
+    left: 1.05rem;
+    transform: translateX(-50%);
+  }
+
+  .projects-grid {
+    grid-column: 1;
+    grid-template-columns: minmax(0, 350px);
+    padding-left: 2rem;
   }
 
   .contact-grid {
