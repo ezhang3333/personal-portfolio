@@ -84,7 +84,7 @@ function toggleExpanded() {
   height: 350px;
   overflow: hidden;
   border: 1px solid var(--line-soft);
-  border-radius: 1.75rem;
+  border-radius: 0.5rem;
   background: rgba(255, 251, 245, 0.92);
   box-shadow: var(--shadow-soft);
   transition:
@@ -155,7 +155,7 @@ function toggleExpanded() {
   height: 35%;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.6rem;
   padding: 1.15rem 1.15rem 1rem;
   background:
     linear-gradient(180deg, rgba(255, 251, 244, 0.9), rgba(255, 248, 240, 0.98)),

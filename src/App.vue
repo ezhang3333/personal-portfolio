@@ -19,34 +19,34 @@ const projectYears: ProjectYear[] = [
     year: '2026',
     projects: [
       {
-        title: 'Portfolio redesign',
-        summary: 'A warmer single-page portfolio with a stronger editorial rhythm.',
+        title: 'NFL Breakout Predictor',
+        summary: 'Helping me win my $500 fantasy football league',
         details:
-          'I am rebuilding this site around a clearer hierarchy, a centered timeline, and a tighter design system so the work feels more deliberate from the first screen to the last.',
+          'NFL weekly player breakout predictor using a fine-tuned XGBoost model on nfl-readypy data.',
         githubHref: '#',
         visualVariant: 'ember',
       },
       {
-        title: 'Interface studies',
-        summary: 'Short experiments around motion restraint and card behavior.',
+        title: 'Quantum Match',
+        summary: 'Prototype for Illinois Quantum & Microelectronics Park',
         details:
-          'These studies focus on spacing, transitions, and how interactions can feel more physical without becoming loud or decorative.',
+          'Raspberry-Pi (4GB RAM) friendly facial matching algorithm with a lightweight chromium kiosk display.',
         githubHref: '#',
         visualVariant: 'grain',
       },
       {
-        title: 'Component patterns',
-        summary: 'Reusable layout and content blocks for personal web projects.',
+        title: 'Loan Assistant',
+        summary: 'Improving the loan matching process',
         details:
-          'I use these patterns to test visual systems quickly, especially typography scales, section spacing, and how repeated components behave across breakpoints.',
+          'Simple loan matching application with an pathway planner and bank heatmap.',
         githubHref: '#',
         visualVariant: 'field',
       },
       {
-        title: 'Placeholder project',
-        summary: 'Short summary to replace later.',
+        title: 'UIUC Quantum Data Portal',
+        summary: 'In tandem with Quantum Match',
         details:
-          'Longer description that I will fill in once the project is real.',
+          'Short data portal for UIUC professors to input their academic information to curate a large dataset for the Quantum Match project using.',
         githubHref: '#',
         visualVariant: 'ember',
       },
@@ -56,10 +56,10 @@ const projectYears: ProjectYear[] = [
     year: '2025',
     projects: [
       {
-        title: 'Frontend prototypes',
-        summary: 'Small builds centered on layout systems and visual polish.',
+        title: 'os-lite',
+        summary: 'Given 1500 lines of code, wrote 5000 lines myself',
         details:
-          'These projects were mostly about learning how to iterate on structure quickly and make simple interfaces feel more intentional through typography and spacing.',
+          'A 64-bit RISC-V operating system that supports external devices, interrupts, threads, processes, virtual memory, a NGFS FAT-style file system, and a Linux shell.',
         githubHref: '#',
         visualVariant: 'grain',
       },
@@ -77,10 +77,23 @@ const projectYears: ProjectYear[] = [
     year: '2024',
     projects: [
       {
-        title: 'Student projects',
+        title: 'True Balance',
         summary: 'Course and independent work that taught me how to ship.',
         details:
           'This was the period where I spent the most time translating rough ideas into working interfaces and learning which details actually matter once something is live.',
+        githubHref: '#',
+        visualVariant: 'field',
+      },
+    ],
+  },
+  {
+    year: '2023',
+    projects: [
+      {
+        title: 'Tone Classifier',
+        summary: 'My first ever ML project',
+        details:
+          'Using GPT-2 base model with causal language modeling using seq2seq and also basic classification to detect postivie or negative tones.',
         githubHref: '#',
         visualVariant: 'field',
       },
