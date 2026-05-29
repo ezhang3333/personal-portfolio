@@ -94,16 +94,17 @@ const projectYears: ProjectYear[] = [
     <section class="hero-section">
       <div class="section-shell hero-shell">
         <div class="hero-copy">
-          <h1>Hey, I&apos;m Ethan.</h1>
+          <h1>Hey, I'm Ethan.</h1>
           <p class="hero-lead">
-            I&apos;m a student who likes building for the web, thinking through
+            I'm a student who likes building for the web, thinking through
             interfaces, and making simple things feel considered.
           </p>
           <p class="hero-support">
-            This page is a compact view of what I&apos;m making, how I think, and
+            This page is a compact view of what I'm making, how I think, and
             the best way to reach me.
           </p>
         </div>
+        <img src="./assets/professional_headshot.png" class="professional-headshot">
       </div>
     </section>
 
@@ -187,7 +188,8 @@ const projectYears: ProjectYear[] = [
 }
 
 .hero-shell {
-  display: grid;
+  display: flex;
+  align-items: center;
   grid-template-columns: minmax(0, 1fr);
   gap: 2rem;
 }
@@ -233,6 +235,12 @@ const projectYears: ProjectYear[] = [
   font-size: 1rem;
   line-height: 1.8;
   color: var(--text-secondary);
+}
+
+.professional-headshot {
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
 }
 
 .timeline-section,
