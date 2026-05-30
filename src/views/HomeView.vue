@@ -15,10 +15,7 @@ import sketchHeadshot from '../assets/sketch_headshot.png'
           3+ years of scaling full-stack web applications and
           <span class="bio-highlight">building microservices</span>
           at companies of all different sizes. Passionate about maximizing my
-          efficiency as a software engineer while maintaining the level of
-          code I produce. In current times, that means constantly learning
-          and staying up to date with the newest agentic coding methods and
-          github repos as well as experimenting myself.
+          efficiency as a software engineer without deteriorating the level of code produced.
         </p>
       </div>
     </div>
@@ -84,11 +81,7 @@ import sketchHeadshot from '../assets/sketch_headshot.png'
 }
 
 .bio-highlight {
-  background: rgba(111, 74, 51, 0.14);
-  color: var(--accent);
-  padding: 0 0.25em;
-  border-radius: 3px;
-  font-weight: 600;
+  color: #b8633a;
 }
 
 @media (max-width: 760px) {

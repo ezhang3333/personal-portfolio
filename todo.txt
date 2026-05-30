@@ -3,10 +3,11 @@
   - Replace placeholder text in HomeView.vue, AboutView.vue, and ProjectCard.vue
   - Add a real photo to AboutView.vue
   - Link Resume card to an actual PDF
-  - contribution graph
+  - contribution 
+  - resume not loading anything just blank white page
 
   Inspo:
 
-  https://www.vishruthraj.com/
+https://jburt.co.uk/
 
   

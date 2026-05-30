@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import resumeIcon from '../assets/resume-icon.png'
+import githubIcon from '../assets/github-icon.png'
+import linkedinIcon from '../assets/linkedin-icon.png'
 </script>
 
 <template>
@@ -17,6 +20,36 @@ import { RouterLink } from 'vue-router'
         <RouterLink to="/projects" class="nav-link" active-class="is-active">
           Projects
         </RouterLink>
+
+        <div class="icon-group">
+          <a
+            href="/EthanZhangsResume.pdf"
+            target="_blank"
+            rel="noopener"
+            class="icon-link"
+            aria-label="Resume"
+          >
+            <img :src="resumeIcon" alt="" class="icon" />
+          </a>
+          <a
+            href="https://github.com/ezhang3333"
+            target="_blank"
+            rel="noopener"
+            class="icon-link"
+            aria-label="GitHub"
+          >
+            <img :src="githubIcon" alt="" class="icon" />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/ethan-zhang-10a56519b/"
+            target="_blank"
+            rel="noopener"
+            class="icon-link"
+            aria-label="LinkedIn"
+          >
+            <img :src="linkedinIcon" alt="" class="icon" />
+          </a>
+        </div>
       </nav>
     </div>
   </header>
@@ -27,7 +60,7 @@ import { RouterLink } from 'vue-router'
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(250, 250, 247, 0.85);
+  background: rgba(254, 254, 254, 0.85);
   backdrop-filter: saturate(140%) blur(10px);
   -webkit-backdrop-filter: saturate(140%) blur(10px);
   border-bottom: 1px solid var(--line-soft);
@@ -85,6 +118,37 @@ import { RouterLink } from 'vue-router'
   border-radius: 2px;
 }
 
+.icon-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-left: 0.5rem;
+  padding-left: 2.25rem;
+  border-left: 1px solid var(--line-soft);
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  opacity: 0.78;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.icon-link:hover,
+.icon-link:focus-visible {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 @media (max-width: 640px) {
   .header-shell {
     width: min(100% - 1.5rem, 1320px);
@@ -102,6 +166,17 @@ import { RouterLink } from 'vue-router'
 
   .brand {
     font-size: 1rem;
+  }
+
+  .icon-group {
+    gap: 0.85rem;
+    padding-left: 0.85rem;
+    margin-left: 0.25rem;
+  }
+
+  .icon-link {
+    width: 1.35rem;
+    height: 1.35rem;
   }
 }
 </style>
