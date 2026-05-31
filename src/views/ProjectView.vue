@@ -8,28 +8,28 @@ import nextIcon from '../assets/next-icon.png'
 
 const projects = [
   {
-    title: 'Quantum data portal',
+    title: 'Quantum Portal',
     summary: 'A clean dashboard for exploring quantum company and leadership data.',
     imageSrc: quantumDataPortal,
     imageAlt: 'Quantum data portal dashboard screenshot',
     detailsHref: 'https://github.com/ezhang3333',
   },
   {
-    title: 'Loan match',
-    summary: 'A borrower-focused matching flow for comparing loan options quickly.',
+    title: 'Loan Match',
+    summary: 'Vibe-coded app to improve the loan matching process',
     imageSrc: loanMatch,
     imageAlt: 'Loan match web application screenshot',
     detailsHref: 'https://github.com/ezhang3333',
   },
   {
-    title: 'Tone classifier',
-    summary: 'A lightweight NLP interface for classifying writing tone from text.',
+    title: 'Tone Classifier',
+    summary: 'My first ML project',
     imageSrc: toneClassifier,
     imageAlt: 'Tone classifier application screenshot',
     detailsHref: 'https://github.com/ezhang3333',
   },
   {
-    title: 'NFL fantasy breakout',
+    title: 'NFL Breakout',
     summary: 'A football analytics project for surfacing player breakout signals.',
     imageSrc: nflFantasyBreakout,
     imageAlt: 'NFL fantasy breakout analytics screenshot',

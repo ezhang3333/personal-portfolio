@@ -83,16 +83,17 @@ defineProps<{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.62rem;
+  gap: 0.42rem;
   padding: 1.55rem 1.6rem 1.45rem;
   color: #fff;
-  transform: translateY(3.05rem);
+  transform: translateY(calc(3.05rem - 5px));
   transition: transform 280ms ease;
 }
 
 .project-copy h2 {
   max-width: 16ch;
   font-size: clamp(1.65rem, 2.25vw, 2.25rem);
+  font-weight: 550;
   line-height: 0.98;
   letter-spacing: -0.035em;
   text-wrap: balance;
@@ -101,7 +102,7 @@ defineProps<{
 .project-copy p {
   max-width: 39ch;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 1px 18px rgba(0, 0, 0, 0.32);
@@ -110,7 +111,9 @@ defineProps<{
 .project-actions {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.65rem;
+  width: 100%;
   padding-top: 0.3rem;
   opacity: 0;
   transform: translateY(0.8rem);
@@ -124,29 +127,27 @@ defineProps<{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.35rem;
-  padding: 0.65rem 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.56);
-  border-radius: 0.35rem;
-  background: rgba(255, 255, 255, 0.11);
+  min-height: 1.35rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: #fff;
   font-size: 0.88rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   transition:
-    transform 180ms ease,
-    background 180ms ease,
-    border-color 180ms ease;
+    color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
 .project-button::after {
   content: '';
   position: absolute;
-  left: 0.9rem;
-  right: 0.9rem;
-  bottom: 0.48rem;
+  left: 0;
+  right: 0;
+  bottom: -0.32rem;
   height: 1.5px;
   background: currentColor;
   border-radius: 2px;
@@ -158,8 +159,7 @@ defineProps<{
 .project-button:hover,
 .project-button:focus-visible {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.82);
+  color: #fff;
 }
 
 .project-button:hover::after,
@@ -168,15 +168,12 @@ defineProps<{
 }
 
 .project-button-primary {
-  background: rgba(255, 255, 255, 0.92);
-  color: #2e2017;
-  border-color: rgba(255, 255, 255, 0.92);
+  color: #fff;
 }
 
 .project-button-primary:hover,
 .project-button-primary:focus-visible {
-  background: #fff;
-  border-color: #fff;
+  color: #fff;
 }
 
 .project-button-disabled {
@@ -215,7 +212,7 @@ defineProps<{
 @media (max-width: 720px) {
   .project-copy {
     padding: 1.15rem;
-    transform: translateY(2.85rem);
+    transform: translateY(calc(2.85rem - 5px));
   }
 
   .project-copy h2 {
@@ -228,7 +225,6 @@ defineProps<{
 
   .project-button {
     min-height: 2.2rem;
-    padding: 0.58rem 0.72rem;
   }
 }
 </style>
