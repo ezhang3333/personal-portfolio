@@ -1,78 +1,41 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { ChevronRight, ChevronDown } from '@lucide/vue'
-
-const props = withDefaults(
-  defineProps<{
-    title: string
-    summary: string
-    details: string
-    githubHref: string
-    visualVariant?: 'ember' | 'grain' | 'field'
-    initiallyExpanded?: boolean
-  }>(),
-  {
-    visualVariant: 'ember',
-    initiallyExpanded: false,
-  },
-)
-
-const isExpanded = ref(props.initiallyExpanded)
-
-const visualClass = computed(() => `variant-${props.visualVariant}`)
-
-function toggleExpanded() {
-  isExpanded.value = !isExpanded.value
-}
+defineProps<{
+  title: string
+  summary: string
+  imageSrc: string
+  imageAlt: string
+  detailsHref: string
+  siteHref?: string
+}>()
 </script>
 
 <template>
-  <article class="project-card" :class="{ 'is-expanded': isExpanded }">
-    <div class="visual-panel" :class="visualClass" aria-hidden="true">
-      <span class="visual-grid"></span>
-      <span class="visual-band"></span>
-    </div>
+  <article class="project-card">
+    <img :src="imageSrc" :alt="imageAlt" class="project-image" />
 
-    <div class="content-panel">
-      <div class="title-row">
-        <button
-          type="button"
-          class="title-toggle"
-          :aria-expanded="isExpanded"
-          @click="toggleExpanded"
-        >
-          <span class="project-title">{{ title }}</span>
-          <component
-            :is="isExpanded ? ChevronDown : ChevronRight"
-            class="arrow-mark"
-            :size="16"
-            :stroke-width="2"
-            aria-hidden="true"
-          />
-        </button>
+    <div class="image-shade" aria-hidden="true"></div>
 
+    <div class="project-copy">
+      <h2>{{ title }}</h2>
+      <p>{{ summary }}</p>
+
+      <div class="project-actions">
+        <a :href="detailsHref" target="_blank" rel="noopener" class="project-button">
+          More details
+        </a>
         <a
-          class="github-link"
-          :href="githubHref"
+          v-if="siteHref"
+          :href="siteHref"
           target="_blank"
           rel="noopener"
-          aria-label="Open project GitHub link"
+          class="project-button project-button-primary"
         >
-          <svg
-            class="github-mark"
-            role="img"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-          </svg>
+          View site
         </a>
+        <span v-else class="project-button project-button-disabled" aria-disabled="true">
+          View site
+        </span>
       </div>
-
-      <p class="card-copy">
-        {{ isExpanded ? details : summary }}
-      </p>
     </div>
   </article>
 </template>
@@ -80,200 +43,192 @@ function toggleExpanded() {
 <style scoped>
 .project-card {
   position: relative;
-  width: min(100%, 350px);
-  height: 350px;
+  width: 100%;
+  max-width: 650px;
+  aspect-ratio: 13 / 8;
   overflow: hidden;
-  border: 1px solid var(--line-soft);
-  border-radius: 0.5rem;
-  background: rgba(255, 251, 245, 0.92);
-  box-shadow: var(--shadow-soft);
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease;
+  border-radius: 0.45rem;
+  background: var(--bg-warm);
+  box-shadow: 0 22px 54px rgba(73, 43, 23, 0.13);
+  isolation: isolate;
 }
 
-.project-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow-lifted);
-}
-
-.visual-panel {
+.project-image {
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition:
-    opacity 220ms ease,
-    transform 220ms ease;
+    transform 320ms ease,
+    filter 320ms ease;
 }
 
-.variant-ember {
-  background:
-    radial-gradient(circle at 22% 24%, rgba(255, 243, 231, 0.85), transparent 18%),
-    linear-gradient(135deg, rgba(158, 100, 62, 0.92), rgba(101, 66, 46, 0.95));
-}
-
-.variant-grain {
-  background:
-    radial-gradient(circle at 72% 25%, rgba(254, 241, 224, 0.72), transparent 14%),
-    linear-gradient(135deg, rgba(109, 84, 58, 0.98), rgba(73, 52, 40, 0.98));
-}
-
-.variant-field {
-  background:
-    radial-gradient(circle at 30% 68%, rgba(247, 235, 215, 0.7), transparent 18%),
-    linear-gradient(160deg, rgba(128, 92, 60, 0.94), rgba(87, 60, 43, 0.98));
-}
-
-.visual-grid,
-.visual-band {
+.image-shade {
   position: absolute;
-  pointer-events: none;
-}
-
-.visual-grid {
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: 0.7;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(16, 12, 9, 0.06) 18%, rgba(16, 12, 9, 0.82) 100%),
+    linear-gradient(90deg, rgba(16, 12, 9, 0.24), rgba(16, 12, 9, 0.04) 48%);
+  transition: background 320ms ease;
 }
 
-.visual-band {
-  inset: auto 0 5.7rem 0;
-  height: 1px;
-  background: rgba(255, 247, 238, 0.46);
-}
-
-.content-panel {
+.project-copy {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 35%;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  padding: 1.15rem 1.15rem 1rem;
-  background:
-    linear-gradient(180deg, rgba(255, 251, 244, 0.9), rgba(255, 248, 240, 0.98)),
-    rgba(255, 250, 244, 0.96);
-  border-top: 1px solid rgba(111, 74, 51, 0.12);
-  transition:
-    height 220ms ease,
-    background 220ms ease;
-}
-
-.title-row {
-  display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 0.62rem;
+  padding: 1.55rem 1.6rem 1.45rem;
+  color: #fff;
+  transform: translateY(3.05rem);
+  transition: transform 280ms ease;
 }
 
-.title-toggle {
-  flex: 1;
-  display: inline-flex;
+.project-copy h2 {
+  max-width: 16ch;
+  font-size: clamp(1.65rem, 2.25vw, 2.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.project-copy p {
+  max-width: 39ch;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.32);
+}
+
+.project-actions {
+  display: flex;
   align-items: center;
   gap: 0.65rem;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
+  padding-top: 0.3rem;
+  opacity: 0;
+  transform: translateY(0.8rem);
+  transition:
+    opacity 240ms ease,
+    transform 240ms ease;
 }
 
-.project-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
-}
-
-.arrow-mark {
-  flex: 0 0 auto;
-  color: var(--accent);
-  transition: transform 220ms ease;
-}
-
-.github-link {
+.project-button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  margin-left: auto;
-  border: 1px solid rgba(111, 74, 51, 0.16);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.52);
+  min-height: 2.35rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  border-radius: 0.35rem;
+  background: rgba(255, 255, 255, 0.11);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition:
     transform 180ms ease,
-    border-color 180ms ease,
-    background 180ms ease;
+    background 180ms ease,
+    border-color 180ms ease;
 }
 
-.github-link:hover,
-.github-link:focus-visible {
+.project-button::after {
+  content: '';
+  position: absolute;
+  left: 0.9rem;
+  right: 0.9rem;
+  bottom: 0.48rem;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+.project-button:hover,
+.project-button:focus-visible {
   transform: translateY(-1px);
-  border-color: var(--line-strong);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.82);
 }
 
-.github-mark {
-  width: 1rem;
-  height: 1rem;
-  fill: var(--accent);
+.project-button:hover::after,
+.project-button:focus-visible::after {
+  transform: scaleX(1);
 }
 
-.card-copy {
-  max-width: 26ch;
-  font-size: 0.88rem;
-  line-height: 1.55;
-  color: var(--text-secondary);
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+.project-button-primary {
+  background: rgba(255, 255, 255, 0.92);
+  color: #2e2017;
+  border-color: rgba(255, 255, 255, 0.92);
 }
 
-.project-card.is-expanded .visual-panel {
-  opacity: 0.16;
-  transform: scale(1.03);
+.project-button-primary:hover,
+.project-button-primary:focus-visible {
+  background: #fff;
+  border-color: #fff;
 }
 
-.project-card.is-expanded .content-panel {
-  height: 100%;
+.project-button-disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.project-button-disabled::after {
+  content: none;
+}
+
+.project-card:hover .project-image,
+.project-card:focus-within .project-image {
+  transform: scale(1.045);
+  filter: saturate(1.06) contrast(1.04);
+}
+
+.project-card:hover .image-shade,
+.project-card:focus-within .image-shade {
   background:
-    linear-gradient(180deg, rgba(255, 250, 243, 0.92), rgba(255, 247, 239, 0.98)),
-    rgba(255, 249, 242, 0.97);
+    linear-gradient(180deg, rgba(16, 12, 9, 0.08) 6%, rgba(16, 12, 9, 0.9) 100%),
+    linear-gradient(90deg, rgba(16, 12, 9, 0.32), rgba(16, 12, 9, 0.08) 48%);
 }
 
-.project-card.is-expanded .card-copy {
-  max-width: none;
-  overflow: auto;
-  -webkit-line-clamp: unset;
-  padding-right: 0.35rem;
+.project-card:hover .project-copy,
+.project-card:focus-within .project-copy {
+  transform: translateY(0);
 }
 
-.project-card.is-expanded .card-copy::-webkit-scrollbar {
-  width: 0.35rem;
+.project-card:hover .project-actions,
+.project-card:focus-within .project-actions {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.project-card.is-expanded .card-copy::-webkit-scrollbar-thumb {
-  background: rgba(111, 74, 51, 0.22);
-  border-radius: 999px;
-}
-
-@media (max-width: 640px) {
-  .project-card {
-    width: min(100%, 320px);
-    height: 320px;
+@media (max-width: 720px) {
+  .project-copy {
+    padding: 1.15rem;
+    transform: translateY(2.85rem);
   }
 
-  .card-copy {
-    max-width: none;
+  .project-copy h2 {
+    font-size: clamp(1.35rem, 8vw, 1.9rem);
+  }
+
+  .project-copy p {
+    font-size: 0.92rem;
+  }
+
+  .project-button {
+    min-height: 2.2rem;
+    padding: 0.58rem 0.72rem;
   }
 }
 </style>

@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router'
 import resumeIcon from '../assets/resume-icon.png'
 import githubIcon from '../assets/github-icon.png'
 import linkedinIcon from '../assets/linkedin-icon.png'
+import locationIcon from '../assets/location-icon.png'
 </script>
 
 <template>
@@ -49,6 +50,10 @@ import linkedinIcon from '../assets/linkedin-icon.png'
           >
             <img :src="linkedinIcon" alt="" class="icon" />
           </a>
+          <span class="location">
+            <img :src="locationIcon" alt="" class="icon location-icon" />
+            Boston, MA
+          </span>
         </div>
       </nav>
     </div>
@@ -67,8 +72,9 @@ import linkedinIcon from '../assets/linkedin-icon.png'
 }
 
 .header-shell {
-  width: min(1320px, calc(100% - 3rem));
+  width: 100%;
   margin-left: 50px;
+  padding-right: 175px;
   height: 4.5rem;
   display: flex;
   align-items: center;
@@ -77,10 +83,41 @@ import linkedinIcon from '../assets/linkedin-icon.png'
 }
 
 .brand {
+  display: inline-block;
+  transform-origin: left center;
   font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--text-primary);
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.brand:hover,
+.brand:focus-visible {
+  color: var(--accent);
+  transform: scale(1.045);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
 }
 
 .nav {
@@ -108,14 +145,7 @@ import linkedinIcon from '../assets/linkedin-icon.png'
 }
 
 .nav-link.is-active::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -2px;
-  height: 1.5px;
   background: var(--accent);
-  border-radius: 2px;
 }
 
 .icon-group {
@@ -147,6 +177,23 @@ import linkedinIcon from '../assets/linkedin-icon.png'
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  padding-left: 3.3rem;
+}
+
+.location-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  opacity: 0.78;
 }
 
 @media (max-width: 640px) {
