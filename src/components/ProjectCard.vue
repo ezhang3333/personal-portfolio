@@ -6,6 +6,7 @@ defineProps<{
   imageAlt: string
   detailsHref: string
   siteHref?: string
+  hideSiteAction?: boolean
 }>()
 </script>
 
@@ -32,7 +33,11 @@ defineProps<{
         >
           View site
         </a>
-        <span v-else class="project-button project-button-disabled" aria-disabled="true">
+        <span
+          v-else-if="!hideSiteAction"
+          class="project-button project-button-disabled"
+          aria-disabled="true"
+        >
           View site
         </span>
       </div>

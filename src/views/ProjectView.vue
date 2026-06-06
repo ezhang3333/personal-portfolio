@@ -14,6 +14,7 @@ const projects = [
     imageSrc: quantumMatch,
     imageAlt: 'Quantum Match facial recognition interface',
     detailsHref: 'https://github.com/ezhang3333',
+    siteHref: 'https://quantum-match.vercel.app/',
   },
   {
     title: 'Loan Match',
@@ -21,6 +22,7 @@ const projects = [
     imageSrc: loanMatch,
     imageAlt: 'Loan match web application screenshot',
     detailsHref: 'https://github.com/ezhang3333',
+    hideSiteAction: true,
   },
   {
     title: 'OS-Lite',
@@ -28,6 +30,7 @@ const projects = [
     imageSrc: osLite,
     imageAlt: 'OS-Lite booting into the LUMON OS shell in QEMU',
     detailsHref: 'https://github.com/ezhang3333',
+    hideSiteAction: true,
   },
   {
     title: 'NFL Breakout',
@@ -35,6 +38,7 @@ const projects = [
     imageSrc: nflFantasyBreakout,
     imageAlt: 'NFL fantasy breakout analytics screenshot',
     detailsHref: 'https://github.com/ezhang3333',
+    siteHref: 'https://fantasy-football-tawny.vercel.app/',
   },
 ]
 </script>

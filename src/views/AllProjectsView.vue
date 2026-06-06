@@ -15,6 +15,7 @@ const featuredProjects = [
     imageSrc: quantumMatch,
     imageAlt: 'Quantum Match facial recognition interface',
     detailsHref: 'https://github.com/ezhang3333',
+    siteHref: 'https://quantum-match.vercel.app/',
   },
   {
     title: 'Loan Match',
@@ -22,6 +23,7 @@ const featuredProjects = [
     imageSrc: loanMatch,
     imageAlt: 'Loan match web application screenshot',
     detailsHref: 'https://github.com/ezhang3333',
+    hideSiteAction: true,
   },
   {
     title: 'OS-Lite',
@@ -29,6 +31,7 @@ const featuredProjects = [
     imageSrc: osLite,
     imageAlt: 'OS-Lite booting into the LUMON OS shell in QEMU',
     detailsHref: 'https://github.com/ezhang3333',
+    hideSiteAction: true,
   },
   {
     title: 'NFL Breakout',
@@ -36,6 +39,7 @@ const featuredProjects = [
     imageSrc: nflFantasyBreakout,
     imageAlt: 'NFL fantasy breakout analytics screenshot',
     detailsHref: 'https://github.com/ezhang3333',
+    siteHref: 'https://fantasy-football-tawny.vercel.app/',
   },
 ]
 
@@ -46,6 +50,7 @@ const moreProjects = [
     imageSrc: quantumDataPortal,
     imageAlt: 'Quantum data portal dashboard screenshot',
     detailsHref: 'https://github.com/ezhang3333',
+    siteHref: 'https://quantum-data-portal.vercel.app/',
   },
   {
     title: 'Tone Classifier',
@@ -53,6 +58,7 @@ const moreProjects = [
     imageSrc: toneClassifier,
     imageAlt: 'Tone classifier application screenshot',
     detailsHref: 'https://github.com/ezhang3333',
+    hideSiteAction: true,
   },
 ]
 </script>
