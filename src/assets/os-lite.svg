@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 800" role="img" aria-labelledby="title desc">
+  <title id="title">OS-Lite terminal preview</title>
+  <desc id="desc">A dark terminal showing a RISC-V operating system booting into the LUMON OS shell.</desc>
+  <rect width="1300" height="800" fill="#171814"/>
+  <circle cx="1130" cy="118" r="250" fill="#b8c784" opacity=".1"/>
+  <circle cx="170" cy="720" r="310" fill="#d0a270" opacity=".08"/>
+  <rect x="100" y="82" width="1100" height="636" rx="18" fill="#20221d" stroke="#5d6352" stroke-width="2"/>
+  <rect x="100" y="82" width="1100" height="58" rx="18" fill="#292c25"/>
+  <rect x="100" y="122" width="1100" height="18" fill="#292c25"/>
+  <circle cx="142" cy="111" r="8" fill="#cf806b"/>
+  <circle cx="171" cy="111" r="8" fill="#d3b36e"/>
+  <circle cx="200" cy="111" r="8" fill="#8eab79"/>
+  <text x="650" y="118" text-anchor="middle" fill="#aeb2a5" font-family="monospace" font-size="17">qemu-system-riscv64</text>
+  <g font-family="monospace" font-size="24" fill="#c8cdbd">
+    <text x="150" y="205" fill="#aebe7a">OpenSBI v1.8.1</text>
+    <text x="150" y="249">Platform Name          : riscv-virtio,qemu</text>
+    <text x="150" y="293">Boot HART              : 0</text>
+    <text x="150" y="337">Domain0 Next Address   : 0x0000000080200000</text>
+    <text x="150" y="401" fill="#d4a56e">[kernel] attaching virtio devices</text>
+    <text x="150" y="445">[kernel] mounted ngfs at /c</text>
+    <text x="150" y="489">[kernel] mounted tarfs at /d</text>
+    <text x="150" y="553" fill="#aebe7a">LUMON OS&gt; ls /c</text>
+    <text x="150" y="597">cat  echo  ls  rogue  shell  trek  wc  zork</text>
+    <text x="150" y="651" fill="#aebe7a">LUMON OS&gt; _</text>
+  </g>
+</svg>

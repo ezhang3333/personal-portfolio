@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import ProjectCard from '../components/ProjectCard.vue'
+import quantumDataPortal from '../assets/quantum-data-portal.png'
 import loanMatch from '../assets/loan-match.png'
+import toneClassifier from '../assets/tone-classifier.png'
 import nflFantasyBreakout from '../assets/nfl-fantasy-breakout.png'
 import osLite from '../assets/os-lite.svg'
 import quantumMatch from '../assets/quantum-match.png'
-import nextIcon from '../assets/next-icon.png'
 
-const projects = [
+const featuredProjects = [
   {
     title: 'Quantum Match',
     summary: 'An interactive smart mirror that matches a face with a scientist, engineer, or entrepreneur.',
@@ -17,7 +18,7 @@ const projects = [
   },
   {
     title: 'Loan Match',
-    summary: 'Vibe-coded app to improve the loan matching process',
+    summary: 'Vibe-coded app to improve the loan matching process.',
     imageSrc: loanMatch,
     imageAlt: 'Loan match web application screenshot',
     detailsHref: 'https://github.com/ezhang3333',
@@ -37,26 +38,59 @@ const projects = [
     detailsHref: 'https://github.com/ezhang3333',
   },
 ]
+
+const moreProjects = [
+  {
+    title: 'Quantum Portal',
+    summary: 'A clean dashboard for exploring quantum company and leadership data.',
+    imageSrc: quantumDataPortal,
+    imageAlt: 'Quantum data portal dashboard screenshot',
+    detailsHref: 'https://github.com/ezhang3333',
+  },
+  {
+    title: 'Tone Classifier',
+    summary: 'My first machine learning project.',
+    imageSrc: toneClassifier,
+    imageAlt: 'Tone classifier application screenshot',
+    detailsHref: 'https://github.com/ezhang3333',
+  },
+]
 </script>
 
 <template>
   <main class="project-page">
-    <section class="section-shell" aria-labelledby="projects-title">
+    <section class="section-shell" aria-labelledby="all-projects-title">
       <div class="project-heading">
-        <h1 class="project-header" id="projects-title">Latest Projects</h1>
-        <RouterLink to="/projects/all" class="all-projects-link">
-          <span>All Projects</span>
-          <img :src="nextIcon" alt="" class="next-icon" aria-hidden="true" />
-        </RouterLink>
+        <div>
+          <p class="eyebrow">Selected work / 06 projects</p>
+          <h1 id="all-projects-title">All Projects</h1>
+        </div>
+
+        <RouterLink to="/projects" class="back-link">Back to latest</RouterLink>
       </div>
 
       <div class="project-grid">
         <ProjectCard
-          v-for="project in projects"
+          v-for="project in featuredProjects"
           :key="project.title"
           v-bind="project"
         />
       </div>
+
+      <section class="more-projects" aria-labelledby="more-projects-title">
+        <div class="section-heading">
+          <p class="eyebrow">Archive</p>
+          <h2 id="more-projects-title">More Projects</h2>
+        </div>
+
+        <div class="project-grid">
+          <ProjectCard
+            v-for="project in moreProjects"
+            :key="project.title"
+            v-bind="project"
+          />
+        </div>
+      </section>
     </section>
   </main>
 </template>
@@ -69,98 +103,67 @@ const projects = [
   scroll-behavior: smooth;
 }
 
-.project-page::-webkit-scrollbar {
-  width: 0.65rem;
-}
-
-.project-page::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.project-page::-webkit-scrollbar-thumb {
-  background: rgba(111, 74, 51, 0.22);
-  border-radius: 999px;
-}
-
 .section-shell {
   width: min(1320px, calc(100% - 3rem));
   margin: 0 auto;
-  padding: 4.2rem 0 6rem;
+  padding: 3.5rem 0 6rem;
 }
 
 .project-heading {
   display: flex;
-  align-items: baseline;
-  width: 100%;
-  max-width: 1320px;
-  margin-right: auto;
-  margin-left: auto;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
   margin-bottom: 2.15rem;
 }
 
-.project-header {
-  font-size: 60px;
+.eyebrow {
+  margin-bottom: 0.7rem;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
 h1 {
-  font-size: clamp(3.8rem, 9vw, 8.5rem);
-  line-height: 0.9;
-  letter-spacing: -0.045em;
+  font-size: clamp(3.8rem, 8vw, 7.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
 }
 
-.all-projects-link {
+.back-link {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
   flex: 0 0 auto;
-  margin-left: auto;
-  margin-right: 20px;
+  margin-right: 1.25rem;
   color: var(--text-secondary);
-  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-size: 0.95rem;
   font-weight: 700;
-  line-height: 1;
-  transform: translateY(-0.32rem);
-  transition:
-    color 180ms ease,
-    transform 180ms ease;
+  transition: color 180ms ease;
 }
 
-.all-projects-link::after {
+.back-link::after {
   content: '';
   position: absolute;
-  left: 0;
   right: 0;
   bottom: -0.32rem;
+  left: 0;
   height: 1.5px;
   background: currentColor;
-  border-radius: 2px;
   transform: scaleX(0);
-  transform-origin: left;
+  transform-origin: right;
   transition: transform 220ms ease;
 }
 
-.all-projects-link:hover,
-.all-projects-link:focus-visible {
+.back-link:hover,
+.back-link:focus-visible {
   color: var(--accent);
-  transform: translateY(-0.32rem) translateX(2px);
 }
 
-.all-projects-link:hover::after,
-.all-projects-link:focus-visible::after {
+.back-link:hover::after,
+.back-link:focus-visible::after {
   transform: scaleX(1);
-}
-
-.next-icon {
-  width: 0.86rem;
-  height: 0.86rem;
-  object-fit: contain;
-  transition: transform 180ms ease;
-}
-
-.all-projects-link:hover .next-icon,
-.all-projects-link:focus-visible .next-icon {
-  transform: translateX(2px);
 }
 
 .project-grid {
@@ -170,11 +173,21 @@ h1 {
   gap: 20px;
 }
 
-@media (max-width: 1120px) {
-  .project-heading {
-    max-width: 650px;
-  }
+.more-projects {
+  padding-top: 5rem;
+}
 
+.section-heading {
+  margin-bottom: 1.6rem;
+}
+
+.section-heading h2 {
+  font-size: clamp(2.3rem, 5vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+@media (max-width: 1120px) {
   .project-grid {
     grid-template-columns: minmax(0, 650px);
   }
@@ -193,14 +206,11 @@ h1 {
   .project-heading {
     align-items: flex-start;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 1.25rem;
   }
 
-  .all-projects-link,
-  .all-projects-link:hover,
-  .all-projects-link:focus-visible {
+  .back-link {
     margin-right: 0;
-    transform: none;
   }
 }
 </style>
