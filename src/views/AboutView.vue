@@ -62,7 +62,7 @@ onMounted(async () => {
 
 <style scoped>
 .about-page {
-  height: calc(100dvh - 4.5rem);
+  height: calc(100dvh - var(--header-height));
   display: flex;
   overflow: hidden;
 }
@@ -199,7 +199,7 @@ h1 {
 
 @media (max-width: 760px) {
   .about-page {
-    height: calc(100dvh - 4rem);
+    height: calc(100dvh - var(--header-height));
   }
 
   .about-shell {

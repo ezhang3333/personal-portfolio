@@ -74,7 +74,7 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
 
 <style scoped>
 .project-detail-page {
-  height: calc(100dvh - 4.5rem);
+  height: calc(100dvh - var(--header-height));
   overflow-x: hidden;
   overflow-y: auto;
   background: #efefed;
@@ -233,7 +233,7 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
 
 @media (max-width: 640px) {
   .project-detail-page {
-    height: calc(100dvh - 4rem);
+    height: calc(100dvh - var(--header-height));
   }
 
   .project-hero {

@@ -66,26 +66,26 @@ import locationIcon from '../assets/location-icon.png'
   top: 0;
   z-index: 50;
   background: rgba(254, 254, 254, 0.85);
-  backdrop-filter: saturate(140%) blur(10px);
-  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  backdrop-filter: saturate(140%) blur(8.5px);
+  -webkit-backdrop-filter: saturate(140%) blur(8.5px);
   border-bottom: 1px solid var(--line-soft);
 }
 
 .header-shell {
   width: 100%;
-  margin-left: 50px;
-  padding-right: 175px;
-  height: 4.5rem;
+  padding-right: 32px;
+  padding-left: 32px;
+  height: var(--header-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1.275rem;
 }
 
 .brand {
   display: inline-block;
   transform-origin: left center;
-  font-size: 1.1rem;
+  font-size: 0.935rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--text-primary);
@@ -123,15 +123,15 @@ import locationIcon from '../assets/location-icon.png'
 .nav {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.7rem;
 }
 
 .nav-link {
   position: relative;
-  font-size: 0.95rem;
+  font-size: 0.8075rem;
   font-weight: 500;
   color: var(--text-secondary);
-  padding: 0.35rem 0;
+  padding: 0.2975rem 0;
   transition: color 160ms ease;
 }
 
@@ -151,9 +151,9 @@ import locationIcon from '../assets/location-icon.png'
 .icon-group {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  margin-left: 0.5rem;
-  padding-left: 2.25rem;
+  gap: 1.0625rem;
+  margin-left: 0.425rem;
+  padding-left: 1.9125rem;
   border-left: 1px solid #000;
 }
 
@@ -161,8 +161,8 @@ import locationIcon from '../assets/location-icon.png'
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.36rem;
+  height: 1.36rem;
   opacity: 0.78;
   transition: opacity 160ms ease, transform 160ms ease;
 }
@@ -182,48 +182,50 @@ import locationIcon from '../assets/location-icon.png'
 .location {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.95rem;
+  gap: 0.34rem;
+  font-size: 0.8075rem;
   font-weight: 500;
   color: var(--text-secondary);
   white-space: nowrap;
-  padding-left: 3.3rem;
+  padding-left: 2.805rem;
 }
 
 .location-icon {
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 0.935rem;
+  height: 0.935rem;
   opacity: 0.78;
 }
 
 @media (max-width: 640px) {
   .header-shell {
-    width: min(100% - 1.5rem, 1320px);
-    height: 4rem;
-    gap: 1rem;
+    width: 100%;
+    padding-right: 32px;
+    padding-left: 32px;
+    height: var(--header-height);
+    gap: 0.85rem;
   }
 
   .nav {
-    gap: 1.1rem;
+    gap: 0.935rem;
   }
 
   .nav-link {
-    font-size: 0.88rem;
+    font-size: 0.748rem;
   }
 
   .brand {
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
 
   .icon-group {
-    gap: 0.85rem;
-    padding-left: 0.85rem;
-    margin-left: 0.25rem;
+    gap: 0.7225rem;
+    padding-left: 0.7225rem;
+    margin-left: 0.2125rem;
   }
 
   .icon-link {
-    width: 1.35rem;
-    height: 1.35rem;
+    width: 1.1475rem;
+    height: 1.1475rem;
   }
 }
 </style>

@@ -24,7 +24,7 @@ import sketchHeadshot from '../assets/sketch_headshot.png'
 
 <style scoped>
 .home-page {
-  height: calc(100dvh - 4.5rem);
+  height: calc(100dvh - var(--header-height));
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -86,7 +86,7 @@ import sketchHeadshot from '../assets/sketch_headshot.png'
 
 @media (max-width: 760px) {
   .home-page {
-    height: calc(100dvh - 4rem);
+    height: calc(100dvh - var(--header-height));
   }
 
   .hero-shell {

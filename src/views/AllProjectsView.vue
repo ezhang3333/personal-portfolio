@@ -66,7 +66,7 @@ onMounted(async () => {
 
 <style scoped>
 .project-page {
-  height: calc(100dvh - 4.5rem);
+  height: calc(100dvh - var(--header-height));
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -168,7 +168,7 @@ h1 {
 
 @media (max-width: 760px) {
   .project-page {
-    height: calc(100dvh - 4rem);
+    height: calc(100dvh - var(--header-height));
   }
 
   .section-shell {
