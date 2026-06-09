@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { nextTick, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useRoute } from 'vue-router'
 import ProjectCard from '../components/ProjectCard.vue'
 import quantumDataPortal from '../assets/quantum-data-portal.png'
 import loanMatch from '../assets/loan-match.png'
@@ -7,6 +9,15 @@ import toneClassifier from '../assets/tone-classifier.png'
 import nflFantasyBreakout from '../assets/nfl-fantasy-breakout.png'
 import osLite from '../assets/os-lite.svg'
 import quantumMatch from '../assets/quantum-match.png'
+
+const route = useRoute()
+
+onMounted(async () => {
+  if (route.hash !== '#more-projects') return
+
+  await nextTick()
+  document.querySelector(route.hash)?.scrollIntoView({ behavior: 'smooth' })
+})
 
 const featuredProjects = [
   {
@@ -83,9 +94,8 @@ const moreProjects = [
         />
       </div>
 
-      <section class="more-projects" aria-labelledby="more-projects-title">
+      <section id="more-projects" class="more-projects" aria-labelledby="more-projects-title">
         <div class="section-heading">
-          <p class="eyebrow">Archive</p>
           <h2 id="more-projects-title">More Projects</h2>
         </div>
 

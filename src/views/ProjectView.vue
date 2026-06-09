@@ -48,8 +48,11 @@ const projects = [
     <section class="section-shell" aria-labelledby="projects-title">
       <div class="project-heading">
         <h1 class="project-header" id="projects-title">Latest Projects</h1>
-        <RouterLink to="/projects/all" class="all-projects-link">
-          <span>All Projects</span>
+        <RouterLink
+          :to="{ name: 'all-projects', hash: '#more-projects' }"
+          class="all-projects-link"
+        >
+          <span>More Projects</span>
           <img :src="nextIcon" alt="" class="next-icon" aria-hidden="true" />
         </RouterLink>
       </div>
