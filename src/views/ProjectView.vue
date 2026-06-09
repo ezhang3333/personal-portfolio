@@ -17,12 +17,12 @@ const projects = [
     siteHref: 'https://quantum-match.vercel.app/',
   },
   {
-    title: 'Loan Match',
-    summary: 'Vibe-coded app to improve the loan matching process',
-    imageSrc: loanMatch,
-    imageAlt: 'Loan match web application screenshot',
+    title: 'NFL Breakout',
+    summary: 'A football analytics project for surfacing player breakout signals.',
+    imageSrc: nflFantasyBreakout,
+    imageAlt: 'NFL fantasy breakout analytics screenshot',
     detailsHref: 'https://github.com/ezhang3333',
-    hideSiteAction: true,
+    siteHref: 'https://fantasy-football-tawny.vercel.app/',
   },
   {
     title: 'OS-Lite',
@@ -33,12 +33,12 @@ const projects = [
     hideSiteAction: true,
   },
   {
-    title: 'NFL Breakout',
-    summary: 'A football analytics project for surfacing player breakout signals.',
-    imageSrc: nflFantasyBreakout,
-    imageAlt: 'NFL fantasy breakout analytics screenshot',
+    title: 'Loan Match',
+    summary: 'Vibe-coded app to improve the loan matching process',
+    imageSrc: loanMatch,
+    imageAlt: 'Loan match web application screenshot',
     detailsHref: 'https://github.com/ezhang3333',
-    siteHref: 'https://fantasy-football-tawny.vercel.app/',
+    hideSiteAction: true,
   },
 ]
 </script>
@@ -47,7 +47,7 @@ const projects = [
   <main class="project-page">
     <section class="section-shell" aria-labelledby="projects-title">
       <div class="project-heading">
-        <h1 class="project-header" id="projects-title">Latest Projects</h1>
+        <h1 class="project-header" id="projects-title">Projects</h1>
         <RouterLink
           :to="{ name: 'all-projects', hash: '#more-projects' }"
           class="all-projects-link"
@@ -85,7 +85,7 @@ const projects = [
 }
 
 .project-page::-webkit-scrollbar-thumb {
-  background: rgba(111, 74, 51, 0.22);
+  background: rgba(184, 99, 58, 0.22);
   border-radius: 999px;
 }
 

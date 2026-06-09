@@ -29,12 +29,12 @@ const featuredProjects = [
     siteHref: 'https://quantum-match.vercel.app/',
   },
   {
-    title: 'Loan Match',
-    summary: 'Vibe-coded app to improve the loan matching process.',
-    imageSrc: loanMatch,
-    imageAlt: 'Loan match web application screenshot',
+    title: 'NFL Breakout',
+    summary: 'A football analytics project for surfacing player breakout signals.',
+    imageSrc: nflFantasyBreakout,
+    imageAlt: 'NFL fantasy breakout analytics screenshot',
     detailsHref: 'https://github.com/ezhang3333',
-    hideSiteAction: true,
+    siteHref: 'https://fantasy-football-tawny.vercel.app/',
   },
   {
     title: 'OS-Lite',
@@ -45,12 +45,12 @@ const featuredProjects = [
     hideSiteAction: true,
   },
   {
-    title: 'NFL Breakout',
-    summary: 'A football analytics project for surfacing player breakout signals.',
-    imageSrc: nflFantasyBreakout,
-    imageAlt: 'NFL fantasy breakout analytics screenshot',
+    title: 'Loan Match',
+    summary: 'Vibe-coded app to improve the loan matching process.',
+    imageSrc: loanMatch,
+    imageAlt: 'Loan match web application screenshot',
     detailsHref: 'https://github.com/ezhang3333',
-    siteHref: 'https://fantasy-football-tawny.vercel.app/',
+    hideSiteAction: true,
   },
 ]
 
@@ -79,8 +79,7 @@ const moreProjects = [
     <section class="section-shell" aria-labelledby="all-projects-title">
       <div class="project-heading">
         <div>
-          <p class="eyebrow">Selected work / 06 projects</p>
-          <h1 id="all-projects-title">All Projects</h1>
+          <h1 id="all-projects-title" class="project-header">Projects</h1>
         </div>
 
         <RouterLink to="/projects" class="back-link">Back to latest</RouterLink>
@@ -149,6 +148,10 @@ h1 {
   text-wrap: balance;
 }
 
+.project-header {
+  font-size: 60px;
+}
+
 .back-link {
   position: relative;
   flex: 0 0 auto;
@@ -198,7 +201,7 @@ h1 {
 }
 
 .section-heading h2 {
-  font-size: clamp(2.3rem, 5vw, 4.5rem);
+  font-size: 60px;
   line-height: 0.95;
   letter-spacing: -0.045em;
 }

@@ -174,7 +174,7 @@ h1 {
 
 .about-link {
   position: relative;
-  color: #b8633a;
+  color: var(--accent);
   text-decoration: none;
 }
 

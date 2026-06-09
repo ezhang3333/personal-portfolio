@@ -22,7 +22,7 @@ defineProps<{
 
       <div class="project-actions">
         <a :href="detailsHref" target="_blank" rel="noopener" class="project-button">
-          More details
+          GitHub
         </a>
         <a
           v-if="siteHref"

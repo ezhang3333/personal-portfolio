@@ -12,7 +12,7 @@ import sketchHeadshot from '../assets/sketch_headshot.png'
         <h1>Ethan Zhang</h1>
         <p class="hero-role">Software Engineer at Onshape by PTC</p>
         <p class="hero-bio">
-          2 years of scaling full-stack web applications and
+          <strong>2 years</strong> of scaling full-stack web applications and
           <span class="bio-highlight">building microservices.</span> 
           Passionate about maximizing my efficiency as a software 
           engineer without deteriorating the level of code produced.
@@ -81,7 +81,7 @@ import sketchHeadshot from '../assets/sketch_headshot.png'
 }
 
 .bio-highlight {
-  color: #b8633a;
+  color: var(--accent);
 }
 
 @media (max-width: 760px) {

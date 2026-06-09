@@ -3,11 +3,11 @@
   --bg-warm: #f3ede2;
   --surface: rgba(255, 255, 253, 0.9);
   --surface-raised: rgba(255, 255, 253, 0.94);
-  --accent: #6f4a33;
-  --text-primary: #2e2017;
-  --text-secondary: #6e584a;
-  --line-soft: rgba(111, 74, 51, 0.14);
-  --line-strong: rgba(111, 74, 51, 0.32);
+  --accent: #b8633a;
+  --text-primary: #11100f;
+  --text-secondary: #494541;
+  --line-soft: rgba(184, 99, 58, 0.16);
+  --line-strong: rgba(184, 99, 58, 0.34);
   --radius-lg: 24px;
   --shadow-soft: 0 18px 40px rgba(73, 43, 23, 0.06);
   --shadow-lifted: 0 20px 52px rgba(73, 43, 23, 0.1);
