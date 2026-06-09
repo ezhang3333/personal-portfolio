@@ -1,18 +1,25 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
+
 defineProps<{
+  slug: string
   title: string
   summary: string
   imageSrc: string
   imageAlt: string
-  detailsHref: string
+  imagePosition?: string
   siteHref?: string
-  hideSiteAction?: boolean
 }>()
 </script>
 
 <template>
   <article class="project-card">
-    <img :src="imageSrc" :alt="imageAlt" class="project-image" />
+    <img
+      :src="imageSrc"
+      :alt="imageAlt"
+      class="project-image"
+      :style="{ objectPosition: imagePosition ?? 'top center' }"
+    />
 
     <div class="image-shade" aria-hidden="true"></div>
 
@@ -21,9 +28,12 @@ defineProps<{
       <p>{{ summary }}</p>
 
       <div class="project-actions">
-        <a :href="detailsHref" target="_blank" rel="noopener" class="project-button">
-          GitHub
-        </a>
+        <RouterLink
+          :to="{ name: 'project-detail', params: { slug } }"
+          class="project-button"
+        >
+          More details
+        </RouterLink>
         <a
           v-if="siteHref"
           :href="siteHref"
@@ -33,13 +43,6 @@ defineProps<{
         >
           View site
         </a>
-        <span
-          v-else-if="!hideSiteAction"
-          class="project-button project-button-disabled"
-          aria-disabled="true"
-        >
-          View site
-        </span>
       </div>
     </div>
   </article>
@@ -64,6 +67,7 @@ defineProps<{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   transition:
     transform 320ms ease,
     filter 320ms ease;
@@ -179,15 +183,6 @@ defineProps<{
 .project-button-primary:hover,
 .project-button-primary:focus-visible {
   color: #fff;
-}
-
-.project-button-disabled {
-  cursor: not-allowed;
-  opacity: 0.52;
-}
-
-.project-button-disabled::after {
-  content: none;
 }
 
 .project-card:hover .project-image,

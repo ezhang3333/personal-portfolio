@@ -1,46 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import ProjectCard from '../components/ProjectCard.vue'
-import loanMatch from '../assets/loan-match.png'
-import nflFantasyBreakout from '../assets/nfl-fantasy-breakout.png'
-import osLite from '../assets/os-lite.svg'
-import quantumMatch from '../assets/quantum-match.png'
 import nextIcon from '../assets/next-icon.png'
-
-const projects = [
-  {
-    title: 'Quantum Match',
-    summary: 'An interactive smart mirror that matches a face with a scientist, engineer, or entrepreneur.',
-    imageSrc: quantumMatch,
-    imageAlt: 'Quantum Match facial recognition interface',
-    detailsHref: 'https://github.com/ezhang3333',
-    siteHref: 'https://quantum-match.vercel.app/',
-  },
-  {
-    title: 'NFL Breakout',
-    summary: 'A football analytics project for surfacing player breakout signals.',
-    imageSrc: nflFantasyBreakout,
-    imageAlt: 'NFL fantasy breakout analytics screenshot',
-    detailsHref: 'https://github.com/ezhang3333',
-    siteHref: 'https://fantasy-football-tawny.vercel.app/',
-  },
-  {
-    title: 'OS-Lite',
-    summary: 'A RISC-V 64-bit operating system with processes, filesystems, drivers, and a UNIX-style shell.',
-    imageSrc: osLite,
-    imageAlt: 'OS-Lite booting into the LUMON OS shell in QEMU',
-    detailsHref: 'https://github.com/ezhang3333',
-    hideSiteAction: true,
-  },
-  {
-    title: 'Loan Match',
-    summary: 'Vibe-coded app to improve the loan matching process',
-    imageSrc: loanMatch,
-    imageAlt: 'Loan match web application screenshot',
-    detailsHref: 'https://github.com/ezhang3333',
-    hideSiteAction: true,
-  },
-]
+import { featuredProjects } from '../data/projects'
 </script>
 
 <template>
@@ -59,9 +21,15 @@ const projects = [
 
       <div class="project-grid">
         <ProjectCard
-          v-for="project in projects"
-          :key="project.title"
-          v-bind="project"
+          v-for="project in featuredProjects"
+          :key="project.slug"
+          :slug="project.slug"
+          :title="project.title"
+          :summary="project.summary"
+          :image-src="project.imageSrc"
+          :image-alt="project.imageAlt"
+          :image-position="project.imagePosition"
+          :site-href="project.siteHref"
         />
       </div>
     </section>

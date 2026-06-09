@@ -154,7 +154,7 @@ import locationIcon from '../assets/location-icon.png'
   gap: 1.25rem;
   margin-left: 0.5rem;
   padding-left: 2.25rem;
-  border-left: 1px solid var(--line-soft);
+  border-left: 1px solid #000;
 }
 
 .icon-link {
