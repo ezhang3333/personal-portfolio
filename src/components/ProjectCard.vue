@@ -168,7 +168,7 @@ defineProps<{
 .project-button:hover,
 .project-button:focus-visible {
   transform: translateY(-1px);
-  color: #fff;
+  color: var(--accent);
 }
 
 .project-button:hover::after,
@@ -182,7 +182,7 @@ defineProps<{
 
 .project-button-primary:hover,
 .project-button-primary:focus-visible {
-  color: #fff;
+  color: var(--accent);
 }
 
 .project-card:hover .project-image,

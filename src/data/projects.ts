@@ -43,7 +43,6 @@ export const featuredProjects: Project[] = [
             'limited RAM, I adapted the concept into a website so users could interact with the matching experience directly from a browser.',
           'The application flow is: landing page, the user selects a match category, provides an image through the web interface, and the system processes the face and compares it against the selected dataset. The closest ' +
             'match is then returned with the matched figure, category, and related information.',
-          'This version keeps the most important part of the project: the facial matching logic and the personalized result experience.',
         ],
       },
       {
@@ -52,9 +51,7 @@ export const featuredProjects: Project[] = [
           'The matching pipeline was built around facial embeddings instead of raw image comparison. Since the original prototype ran locally on a Raspberry Pi 4 with a 4GB RAM constraint, ' +
             'we had to be intentional about using lightweight, open-source computer vision libraries instead of heavier cloud-based or large-model solutions.',
           'We used OpenCV for camera input, image preprocessing, face detection support, cropping, resizing, and normalization because it is fast, well-supported, and efficient enough to run on embedded hardware. ' +
-            'The system converted each detected face into a numerical embedding, which allowed us to compare faces using vector similarity instead of repeatedly analyzing full-resolution images.',
-          'To make the pipeline more efficient, embeddings for the known scientists, engineers, and entrepreneurs were precomputed ahead of time and stored locally. During a user interaction, the system only needed to generate ' +
-            "one embedding for the user, filter the local dataset by the selected category, and compare that vector against the stored embeddings using similarity scoring such as cosine distance.",
+            'OpenCV and InsightFace would do much of the heavy lifting, and we would take the vector embeddings and run cosine similarity against our pre-computed dataset of famous Quantum people from the selected category.',
           'This design helped reduce memory usage and runtime overhead on the Raspberry Pi. Rather than loading and processing every database image during each scan, the application worked with compact embedding vectors, ' +
             'making the system more practical for a hardware prototype with limited RAM and compute resources.',
         ],
@@ -88,8 +85,27 @@ export const featuredProjects: Project[] = [
     siteHref: 'https://fantasy-football-tawny.vercel.app/',
     body: [
       {
-        heading: 'Project Overview',
-        paragraphs: ['A fantasy football analytics project built to help me win my $500 NFL fantasy football league.'],
+        heading: 'Project Overview and Purpose',
+        paragraphs: [
+          'I built this platform to improve the weekly lineup and waiver-wire decisions I made for my fantasy football team. Rankings from platforms such as ESPN, Sleeper, and FantasyPros were useful references, but they often reacted slowly to changes in player usage, opportunity, and recent performance. I wanted an evidence-based system that could identify those changes directly from current NFL data.',
+          'The result is a full-stack prediction platform that forecasts a player\'s average fantasy-point production over the next four weeks. Based on week-over-week testing, its predictions were more useful for my decision-making than the standard rankings I compared them against, and I used it as a competitive tool in my $500 fantasy league.',
+        ],
+      },
+      {
+        heading: 'Workflow and Implementation',
+        paragraphs: [
+          'The project collects and combines approximately ten seasons of data from nflverse, NFL Next Gen Stats, Pro Football Reference, and ESPN. Weekly player statistics, snap counts, schedules, betting lines, advanced efficiency metrics, roster information, and opposing-defense performance are cleaned and combined by a Python pipeline into a consistent player-by-week dataset.',
+          'I designed separate prediction models for quarterbacks, running backs, wide receivers, and tight ends because future performance at each position depends on different signals. Quarterback features emphasize passing volume, air yards, efficiency, rushing production, and pass-defense matchups; running back features prioritize touches, snap share, rushing workload, receiving involvement, and opponent strength; receiver and tight-end features focus on targets, air yards, target share, separation, yards after catch, and recent usage.',
+          'To detect role changes before they are fully reflected in mainstream rankings, I created features that compare a player\'s recent three-week performance with longer seven-week trends. These measurements surface changes in targets, touches, snap counts, and offensive roles while also accounting for projected team scoring, point spreads, opponent strength, player experience, and draft history.',
+          'The prediction engine uses a separate XGBoost model for each position. Models are trained on historical seasons and evaluated against a later season rather than randomly mixing games from different years, preventing future information from leaking into training. Evaluation includes prediction error, ranking correlation, comparisons with recent-performance baselines, and the ability to identify each week\'s top performers.',
+          'A FastAPI backend manages model training, prediction requests, and historical results, while SQLite/libSQL stores training configurations and outputs so model runs can be compared. The React and TypeScript interface lets users choose positions and training seasons, adjust model settings, launch training batches, review previous results, and filter players by projected production or predicted improvement. Each result also includes a performance delta against the player\'s previous five-week average, making emerging breakout candidates easier to distinguish from consistently productive players.',
+        ],
+      },
+      {
+        heading: 'Technologies',
+        paragraphs: [
+          'Python, XGBoost, FastAPI, React, TypeScript, SQLite/libSQL, nflverse, NFL Next Gen Stats, Pro Football Reference, and ESPN data.',
+        ],
       },
     ],
   },
@@ -117,8 +133,27 @@ export const featuredProjects: Project[] = [
     githubHref: 'https://github.com/ezhang3333/Loan-Assistant',
     body: [
       {
-        heading: 'Project Overview',
-        paragraphs: ['Loan Match is a vibe-coded application designed to improve the loan matching process.'],
+        heading: 'Project Overview and Purpose',
+        paragraphs: [
+          'I created this full-stack application to make loan discovery and approval more transparent and personalized. Most existing platforms focus on displaying loan products but provide limited guidance about lender compatibility, approval factors, or the steps borrowers can take to strengthen their financial profiles.',
+          'The platform gives users an estimated prequalification score, personalized lender matches, and an explanation of their primary risk factors before they apply. Its goal is to reduce unnecessary applications and help borrowers make more informed financial decisions.',
+        ],
+      },
+      {
+        heading: 'Workflow and Implementation',
+        paragraphs: [
+          'Users create an account and enter information including income, credit score, employment status, existing loans, location, and desired loan amount. A personalized dashboard organizes this information into an estimated prequalification score, lender recommendations, and the financial factors most likely to affect approval.',
+          'A bank approval heatmap compares estimated approval rates across lenders, credit-score ranges, and loan types. This visualization makes differences between lenders easier to understand than a traditional list of rates and requirements.',
+          'The Loan Assistant evaluates factors such as debt-to-income ratio, credit utilization, down payment, and employment stability. It converts those findings into prioritized recommendations and a practical timeline for improving the user\'s financial profile.',
+          'A What-If Simulator lets users adjust variables such as credit score, income, debt, and down payment to see how potential changes may affect projected approval odds. Instead of only identifying weaknesses, the simulator helps users explore realistic paths toward becoming stronger applicants.',
+          'The React and TypeScript frontend communicates with a Node.js and Express API that supports account creation, login, profile management, lender and loan filtering, and aggregated financial analytics. Financial profiles, bank information, loan records, and location data are stored in a MySQL database hosted on Google Cloud. Passwords are hashed with bcrypt, and parameterized SQL queries protect database reads and writes.',
+        ],
+      },
+      {
+        heading: 'Technologies',
+        paragraphs: [
+          'React, TypeScript, Vite, Node.js, Express, MySQL, Google Cloud, bcrypt, and financial data visualization.',
+        ],
       },
     ],
   },
@@ -136,9 +171,26 @@ export const moreProjects: Project[] = [
     siteHref: 'https://quantum-data-portal.vercel.app/',
     body: [
       {
-        heading: 'Project Overview',
+        heading: 'Project Overview and Purpose',
         paragraphs: [
-          'Quantum Portal is a data collection portal used by University of Illinois academic staff to support the Quantum Match project.',
+          'I developed this web-based data collection portal to support Quantum Match, a separate interactive project that uses computer vision to match museum visitors with professionals in the quantum technology industry. The portal provides a reliable, user-friendly way to collect the structured biographies, headshots, and introductory videos needed to build the matching dataset.',
+          'Instead of manually gathering and organizing profiles, the application creates a standardized pipeline for collecting, validating, and storing participant data. Its PostgreSQL records and media assets give Quantum Match a consistent source for facial comparison and the presentation of matched professional profiles.',
+        ],
+      },
+      {
+        heading: 'Workflow and Implementation',
+        paragraphs: [
+          'Quantum researchers, engineers, and entrepreneurs complete a four-step submission process covering personal information, academic background, professional experience, notable publications, a headshot, and a short video introduction. Before submitting, participants can review the complete profile and return to earlier sections to make corrections.',
+          'The Angular and TypeScript frontend organizes each stage into reusable components. Angular Reactive Forms manage shared form state and validation, while photo and video previews let participants verify selected files before upload. Responsive styling, progress tracking, loading feedback, and clear success and error states support the full submission flow.',
+          'Supabase connects the application to PostgreSQL and object storage. Structured profile information is stored in a profiles table, while larger headshot and video files are kept separately in Supabase Storage. Each record and file is associated with the authenticated participant\'s user ID, simplifying management and preventing duplicate submissions.',
+          'Existing profiles are updated through an upsert operation instead of creating additional database rows. Photo and video uploads run concurrently to reduce submission time, and private media can be accessed by other parts of the system through temporary signed URLs.',
+          'Authentication uses Supabase OAuth with Google and Microsoft account support. Protected routing prevents unauthenticated users from opening the submission form, ensuring that profile records and uploaded media remain tied to a verified participant account.',
+        ],
+      },
+      {
+        heading: 'Technologies',
+        paragraphs: [
+          'Angular, TypeScript, Angular Reactive Forms, Supabase, PostgreSQL, Supabase Authentication, Supabase Storage, LESS, and Vercel.',
         ],
       },
     ],
@@ -152,8 +204,27 @@ export const moreProjects: Project[] = [
     githubHref: 'https://github.com/ezhang3333/ToneClassifier',
     body: [
       {
-        heading: 'Project Overview',
-        paragraphs: ['Tone Classifier was my first machine learning project.'],
+        heading: 'Project Overview and Purpose',
+        paragraphs: [
+          'I built this interactive sentiment-analysis application as my first hands-on machine learning project. Its purpose was to help me understand how a pretrained language model could be adapted to classify movie and product reviews as positive or negative.',
+          'The project compares two approaches: prompting GPT-2 to answer a structured yes-or-no sentiment question and adding a classification layer that is trained on labeled examples. Implementing both approaches demonstrated the difference between using a pretrained model through prompting and adapting it to a specific task through supervised fine-tuning.',
+        ],
+      },
+      {
+        heading: 'Workflow and Implementation',
+        paragraphs: [
+          'I built the training pipeline with Python, PyTorch, and Hugging Face Transformers using 500 labeled movie and product reviews split between positive and negative examples. The pipeline validates and tokenizes the dataset, creates training and validation splits, dynamically pads batches, and limits sequence length to control memory usage.',
+          'Training is configured with gradient accumulation, weight decay, checkpointing, and automatic validation after each epoch. Fixed random seeds make runs more reproducible, while explicit padding and truncation logic handles GPT-2\'s lack of a default padding token and keeps inputs within practical memory limits.',
+          'For the fine-tuned approach, GPT-2 processes each review and produces scores for the positive and negative classes. The application converts those scores into probabilities, displays the class with the higher confidence, and measures validation accuracy and loss so the model can be evaluated beyond individual predictions.',
+          'A Streamlit interface makes both classification approaches available outside the training script. Users can enter a review, select an approach, and inspect the resulting sentiment and confidence scores. Session state preserves a history of reviews classified during the current visit.',
+          'The application automatically uses CUDA when a compatible GPU is available and falls back to the CPU when necessary. Model caching reduces repeated loading time, and the separation between training and inference code keeps the interactive application focused on prediction.',
+        ],
+      },
+      {
+        heading: 'Technologies',
+        paragraphs: [
+          'Python, PyTorch, Hugging Face Transformers, GPT-2, Hugging Face Datasets, Streamlit, NumPy, and CUDA.',
+        ],
       },
     ],
   },

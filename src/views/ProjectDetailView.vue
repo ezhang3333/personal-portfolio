@@ -146,6 +146,7 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
 }
 
 .story-action {
+  position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 1.35rem;
@@ -156,6 +157,20 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
   transition:
     color 180ms ease,
     transform 180ms ease;
+}
+
+.story-action:not(.github-link)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -0.32rem;
+  left: 0;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
 }
 
 .story-action + .story-action {
@@ -174,6 +189,11 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
 .story-action:focus-visible {
   color: var(--accent);
   transform: translateY(-1px);
+}
+
+.story-action:not(.github-link):hover::after,
+.story-action:not(.github-link):focus-visible::after {
+  transform: scaleX(1);
 }
 
 .github-link {
