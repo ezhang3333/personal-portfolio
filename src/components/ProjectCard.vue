@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 defineProps<{
   slug: string
   title: string
-  summary: string
+  description: string
   imageSrc: string
   imageAlt: string
   imagePosition?: string
@@ -25,7 +25,7 @@ defineProps<{
 
     <div class="project-copy">
       <h2>{{ title }}</h2>
-      <p>{{ summary }}</p>
+      <p>{{ description }}</p>
 
       <div class="project-actions">
         <RouterLink

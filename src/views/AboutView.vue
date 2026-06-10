@@ -24,14 +24,22 @@ onMounted(async () => {
         </div>
         <div class="about-detail">
           <p>
-            Software Enginner who is exploring the middle ground between keeping up with the boundary of agentic coding,
-            learning and gaining experience as an entry-level dev, and maximizing the efficiency and level of code produced.
+            Beyond my short bio on the
+            <RouterLink :to="{ name: 'home' }" class="about-link">Home page</RouterLink>,
+            I like to explore the middle ground between keeping up with the boundary of agentic coding,
+            learning and gaining experience as an entry-level dev, and maximizing the efficiency and level of code produced. 
+            <br/>
+            <br/>
+            My belief is that there is benefit and experience that coding from scratch can only give you,
+            but there is also a need for software developers to be on the
+            edge of agentic coding and AI usage as the frontier moves so fast nowadays and there are always ways to
+            improve your workflow and efficiency as a developer.
           </p>
           <p>
 
           </p>
           <div class="working-list">
-            Currently working on:<br>
+            <span class="text-highlight">Currently working on:</span><br>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
               this project
@@ -76,7 +84,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-top: 6.5rem;
+  padding-top: 3.5rem;
   padding-bottom: 7.5rem;
 }
 
@@ -85,6 +93,7 @@ onMounted(async () => {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: start;
   gap: 4.0rem;
+  padding-bottom: 20px;
 }
 
 .contribution {
@@ -153,6 +162,10 @@ h1 {
   color: var(--text-secondary);
 }
 
+.text-highlight {
+  color: var(--accent);
+}
+
 .working-item {
   display: flex;
   align-items: center;
@@ -174,7 +187,9 @@ h1 {
 
 .about-link {
   position: relative;
+  display: inline-block;
   color: var(--accent);
+  font-weight: 700;
   text-decoration: none;
 }
 

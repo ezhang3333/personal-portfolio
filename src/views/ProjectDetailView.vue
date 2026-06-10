@@ -36,6 +36,7 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
               View live site
             </a>
             <a
+              v-if="project.githubHref"
               :href="project.githubHref"
               target="_blank"
               rel="noopener"
@@ -49,16 +50,15 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
             </RouterLink>
           </nav>
 
-          <p class="project-summary">{{ project.summary }}</p>
         </header>
 
-        <div v-if="project.body.length" class="story-body">
+        <div class="story-body">
           <section
             v-for="(section, sectionIndex) in project.body"
             :key="`${project.slug}-${sectionIndex}`"
             class="story-section"
           >
-            <h2 v-if="section.heading">{{ section.heading }}</h2>
+            <h2>{{ section.heading }}</h2>
             <p
               v-for="(paragraph, paragraphIndex) in section.paragraphs"
               :key="`${project.slug}-${sectionIndex}-${paragraphIndex}`"
@@ -136,16 +136,6 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
   text-wrap: balance;
 }
 
-.project-summary {
-  max-width: 65ch;
-  margin-top: 1.25rem;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  font-weight: 450;
-  line-height: 1.7;
-  text-wrap: pretty;
-}
-
 .story-actions {
   display: flex;
   flex-wrap: wrap;
@@ -174,6 +164,12 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
   border-left: 1px solid #000;
 }
 
+.story-actions .back-link {
+  margin-left: auto;
+  padding-left: 0;
+  border-left: 0;
+}
+
 .story-action:hover,
 .story-action:focus-visible {
   color: var(--accent);
@@ -198,7 +194,19 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
 }
 
 .story-body {
+  position: relative;
   padding-top: 2rem;
+  padding-left: 3.25rem;
+}
+
+.story-body::before {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  bottom: 0;
+  left: 0.45rem;
+  width: 1px;
+  background: var(--line-soft);
 }
 
 .story-section + .story-section {
@@ -206,11 +214,35 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
 }
 
 .story-section h2 {
+  position: relative;
   margin-bottom: 1.15rem;
-  font-size: clamp(1.6rem, 2.5vw, 2.35rem);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   text-wrap: balance;
+}
+
+.story-section h2::before {
+  content: '';
+  position: absolute;
+  top: 0.35em;
+  left: -3.075rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.story-section h2::after {
+  content: '';
+  position: absolute;
+  top: calc(0.35em + 0.275rem);
+  left: -2.8rem;
+  width: 2.15rem;
+  height: 1px;
+  background: var(--line-sfot);
 }
 
 .story-section p {
@@ -248,6 +280,23 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
 
   .story-header h1 {
     font-size: 1.25rem;
+  }
+
+  .story-body {
+    padding-left: 2.25rem;
+  }
+
+  .story-body::before {
+    left: 0.3rem;
+  }
+
+  .story-section h2::before {
+    left: -2.225rem;
+  }
+
+  .story-section h2::after {
+    left: -1.95rem;
+    width: 1.3rem;
   }
 }
 </style>

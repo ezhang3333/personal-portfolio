@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import resumeIcon from '../assets/resume-icon.png'
 import githubIcon from '../assets/github-icon.png'
 import linkedinIcon from '../assets/linkedin-icon.png'
 import locationIcon from '../assets/location-icon.png'
+
+const route = useRoute()
+const isProjectsRoute = computed(() =>
+  ['projects', 'all-projects', 'project-detail'].includes(String(route.name)),
+)
 </script>
 
 <template>
@@ -18,7 +25,12 @@ import locationIcon from '../assets/location-icon.png'
         <RouterLink to="/about" class="nav-link" active-class="is-active">
           About Me
         </RouterLink>
-        <RouterLink to="/projects" class="nav-link" active-class="is-active">
+        <RouterLink
+          to="/projects"
+          class="nav-link"
+          active-class="is-active"
+          :class="{ 'is-active': isProjectsRoute }"
+        >
           Projects
         </RouterLink>
 

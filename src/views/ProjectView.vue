@@ -25,7 +25,7 @@ import { featuredProjects } from '../data/projects'
           :key="project.slug"
           :slug="project.slug"
           :title="project.title"
-          :summary="project.summary"
+          :description="project.cardDescription"
           :image-src="project.imageSrc"
           :image-alt="project.imageAlt"
           :image-position="project.imagePosition"
@@ -60,7 +60,7 @@ import { featuredProjects } from '../data/projects'
 .section-shell {
   width: min(1320px, calc(100% - 3rem));
   margin: 0 auto;
-  padding: 4.2rem 0 6rem;
+  padding: 2.5rem 0 6rem;
 }
 
 .project-heading {
