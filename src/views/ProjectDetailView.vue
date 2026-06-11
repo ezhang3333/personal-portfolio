@@ -7,6 +7,17 @@ import { getProjectBySlug } from '../data/projects'
 const route = useRoute()
 
 const project = computed(() => getProjectBySlug(String(route.params.slug)))
+
+function getParagraphParts(paragraph: string) {
+  if (project.value?.slug !== 'quantum-portal') {
+    return [{ text: paragraph, isProjectLink: false }]
+  }
+
+  return paragraph.split(/(Quantum Match)/g).map((text) => ({
+    text,
+    isProjectLink: text === 'Quantum Match',
+  }))
+}
 </script>
 
 <template>
@@ -62,8 +73,21 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
             <p
               v-for="(paragraph, paragraphIndex) in section.paragraphs"
               :key="`${project.slug}-${sectionIndex}-${paragraphIndex}`"
+              :class="{ 'project-disclaimer': paragraph.startsWith('Disclaimer:') }"
             >
-              {{ paragraph }}
+              <template
+                v-for="(part, partIndex) in getParagraphParts(paragraph)"
+                :key="`${project.slug}-${sectionIndex}-${paragraphIndex}-${partIndex}`"
+              >
+                <RouterLink
+                  v-if="part.isProjectLink"
+                  :to="{ name: 'project-detail', params: { slug: 'quantum-match' } }"
+                  class="project-inline-link"
+                >
+                  {{ part.text }}
+                </RouterLink>
+                <template v-else>{{ part.text }}</template>
+              </template>
             </p>
           </section>
         </div>
@@ -274,6 +298,51 @@ const project = computed(() => getProjectBySlug(String(route.params.slug)))
 
 .story-section p + p {
   margin-top: 1.25rem;
+}
+
+.story-section .project-disclaimer {
+  padding: 0.8rem 1rem;
+  border-radius: 0.4rem;
+  background: var(--bg-warm);
+}
+
+.project-inline-link {
+  position: relative;
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.project-inline-link::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0.12em;
+  left: 0;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 180ms ease;
+}
+
+.project-inline-link:hover::after,
+.project-inline-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.project-inline-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-inline-link::after {
+    transition: none;
+  }
 }
 
 @media (max-width: 900px) {

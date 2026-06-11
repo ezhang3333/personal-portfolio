@@ -88,23 +88,22 @@ export const featuredProjects: Project[] = [
         heading: 'Project Overview and Purpose',
         paragraphs: [
           'I built this platform to improve the weekly lineup and waiver-wire decisions I made for my fantasy football team. Rankings from platforms such as ESPN, Sleeper, and FantasyPros were useful references, but they often reacted slowly to changes in player usage, opportunity, and recent performance. I wanted an evidence-based system that could identify those changes directly from current NFL data.',
-          'The result is a full-stack prediction platform that forecasts a player\'s average fantasy-point production over the next four weeks. Based on week-over-week testing, its predictions were more useful for my decision-making than the standard rankings I compared them against, and I used it as a competitive tool in my $500 fantasy league.',
+          'The result is a full-stack prediction platform that forecasts a player\'s average fantasy-point production over the next four weeks. Based on week-over-week testing, its predictions were more useful for my decision-making than the rankings from ESPN, Sleeper, and even FantasyPros, which was an aggregate of over 50+ fantasy experts. Personally, I would use it as a tool in my $500 fantasy football league.',
         ],
       },
       {
         heading: 'Workflow and Implementation',
         paragraphs: [
-          'The project collects and combines approximately ten seasons of data from nflverse, NFL Next Gen Stats, Pro Football Reference, and ESPN. Weekly player statistics, snap counts, schedules, betting lines, advanced efficiency metrics, roster information, and opposing-defense performance are cleaned and combined by a Python pipeline into a consistent player-by-week dataset.',
+          'The project collects and combines approximately ten seasons of data from nflverse, NFL Next Gen Stats, Pro Football Reference, and ESPN. Weekly player statistics, snap counts, schedules, betting lines, advanced efficiency metrics, roster information, and opposing-defense performance are cleaned and combined into a dataset that is indexed by (player, week).',
           'I designed separate prediction models for quarterbacks, running backs, wide receivers, and tight ends because future performance at each position depends on different signals. Quarterback features emphasize passing volume, air yards, efficiency, rushing production, and pass-defense matchups; running back features prioritize touches, snap share, rushing workload, receiving involvement, and opponent strength; receiver and tight-end features focus on targets, air yards, target share, separation, yards after catch, and recent usage.',
-          'To detect role changes before they are fully reflected in mainstream rankings, I created features that compare a player\'s recent three-week performance with longer seven-week trends. These measurements surface changes in targets, touches, snap counts, and offensive roles while also accounting for projected team scoring, point spreads, opponent strength, player experience, and draft history.',
-          'The prediction engine uses a separate XGBoost model for each position. Models are trained on historical seasons and evaluated against a later season rather than randomly mixing games from different years, preventing future information from leaking into training. Evaluation includes prediction error, ranking correlation, comparisons with recent-performance baselines, and the ability to identify each week\'s top performers.',
-          'A FastAPI backend manages model training, prediction requests, and historical results, while SQLite/libSQL stores training configurations and outputs so model runs can be compared. The React and TypeScript interface lets users choose positions and training seasons, adjust model settings, launch training batches, review previous results, and filter players by projected production or predicted improvement. Each result also includes a performance delta against the player\'s previous five-week average, making emerging breakout candidates easier to distinguish from consistently productive players.',
+          'Models are trained on historical seasons and evaluated against a later season rather than randomly mixing games from different years, preventing future information from leaking into training. Evaluation includes prediction error, ranking correlation, comparisons with recent-performance baselines, and the ability to identify each week\'s top performers.',
+          'A FastAPI backend manages model training, prediction requests, and historical results, while SQLite stores training configurations and outputs so model runs can be compared. ',
         ],
       },
       {
-        heading: 'Technologies',
+        heading: 'Tech Stack',
         paragraphs: [
-          'Python, XGBoost, FastAPI, React, TypeScript, SQLite/libSQL, nflverse, NFL Next Gen Stats, Pro Football Reference, and ESPN data.',
+          'Python, XGBoost, FastAPI, React, TypeScript, SQLite, nflverse',
         ],
       },
     ],
@@ -135,8 +134,7 @@ export const featuredProjects: Project[] = [
       {
         heading: 'Project Overview and Purpose',
         paragraphs: [
-          'I created this full-stack application to make loan discovery and approval more transparent and personalized. Most existing platforms focus on displaying loan products but provide limited guidance about lender compatibility, approval factors, or the steps borrowers can take to strengthen their financial profiles.',
-          'The platform gives users an estimated prequalification score, personalized lender matches, and an explanation of their primary risk factors before they apply. Its goal is to reduce unnecessary applications and help borrowers make more informed financial decisions.',
+          'Loan Maatch is a vibe-coded loan approval and matching application to improve the current matching process. All the predictions and smart features such as the bank approval heatmap and loan assistant are based on datasets extracted from Kaggle so in order to reach a production state we would need to have access to real-time data. Besides the underlying data, the features and base functionality can truly rival any of the current most used loan approval websites.',
         ],
       },
       {
@@ -146,13 +144,12 @@ export const featuredProjects: Project[] = [
           'A bank approval heatmap compares estimated approval rates across lenders, credit-score ranges, and loan types. This visualization makes differences between lenders easier to understand than a traditional list of rates and requirements.',
           'The Loan Assistant evaluates factors such as debt-to-income ratio, credit utilization, down payment, and employment stability. It converts those findings into prioritized recommendations and a practical timeline for improving the user\'s financial profile.',
           'A What-If Simulator lets users adjust variables such as credit score, income, debt, and down payment to see how potential changes may affect projected approval odds. Instead of only identifying weaknesses, the simulator helps users explore realistic paths toward becoming stronger applicants.',
-          'The React and TypeScript frontend communicates with a Node.js and Express API that supports account creation, login, profile management, lender and loan filtering, and aggregated financial analytics. Financial profiles, bank information, loan records, and location data are stored in a MySQL database hosted on Google Cloud. Passwords are hashed with bcrypt, and parameterized SQL queries protect database reads and writes.',
         ],
       },
       {
-        heading: 'Technologies',
+        heading: 'Tech Stack',
         paragraphs: [
-          'React, TypeScript, Vite, Node.js, Express, MySQL, Google Cloud, bcrypt, and financial data visualization.',
+          'React, Express, MySQL, GCP',
         ],
       },
     ],
@@ -173,24 +170,22 @@ export const moreProjects: Project[] = [
       {
         heading: 'Project Overview and Purpose',
         paragraphs: [
-          'I developed this web-based data collection portal to support Quantum Match, a separate interactive project that uses computer vision to match museum visitors with professionals in the quantum technology industry. The portal provides a reliable, user-friendly way to collect the structured biographies, headshots, and introductory videos needed to build the matching dataset.',
-          'Instead of manually gathering and organizing profiles, the application creates a standardized pipeline for collecting, validating, and storing participant data. Its PostgreSQL records and media assets give Quantum Match a consistent source for facial comparison and the presentation of matched professional profiles.',
+          'I developed this web-based data collection portal to support Quantum Match. The portal provides a reliable, user-friendly way to collect the structured biographies, headshots, and introductory videos needed to build the matching dataset. Instead of manually gathering and organizing profiles, the application creates a standardized pipeline for collecting, validating, and storing participant data.',
+          'Disclaimer: Due to Supabase free tier shutting down databases that go inactive after 7 days, viewing the live site might not work because the OAuth with Google and Microsoft wont be up and running. '
         ],
       },
       {
         heading: 'Workflow and Implementation',
         paragraphs: [
-          'Quantum researchers, engineers, and entrepreneurs complete a four-step submission process covering personal information, academic background, professional experience, notable publications, a headshot, and a short video introduction. Before submitting, participants can review the complete profile and return to earlier sections to make corrections.',
-          'The Angular and TypeScript frontend organizes each stage into reusable components. Angular Reactive Forms manage shared form state and validation, while photo and video previews let participants verify selected files before upload. Responsive styling, progress tracking, loading feedback, and clear success and error states support the full submission flow.',
-          'Supabase connects the application to PostgreSQL and object storage. Structured profile information is stored in a profiles table, while larger headshot and video files are kept separately in Supabase Storage. Each record and file is associated with the authenticated participant\'s user ID, simplifying management and preventing duplicate submissions.',
+          'Quantum researchers, engineers, and entrepreneurs complete a four-step submission process covering personal information, academic background, professional experience, notable publications, a headshot, and a short video introduction. ',
           'Existing profiles are updated through an upsert operation instead of creating additional database rows. Photo and video uploads run concurrently to reduce submission time, and private media can be accessed by other parts of the system through temporary signed URLs.',
-          'Authentication uses Supabase OAuth with Google and Microsoft account support. Protected routing prevents unauthenticated users from opening the submission form, ensuring that profile records and uploaded media remain tied to a verified participant account.',
+          'Authentication uses Supabase OAuth with Google and Microsoft account support.',
         ],
       },
       {
-        heading: 'Technologies',
+        heading: 'Tech Stack',
         paragraphs: [
-          'Angular, TypeScript, Angular Reactive Forms, Supabase, PostgreSQL, Supabase Authentication, Supabase Storage, LESS, and Vercel.',
+          'Angular, PostgreSQL, Supabase, LESS',
         ],
       },
     ],
@@ -216,14 +211,14 @@ export const moreProjects: Project[] = [
           'I built the training pipeline with Python, PyTorch, and Hugging Face Transformers using 500 labeled movie and product reviews split between positive and negative examples. The pipeline validates and tokenizes the dataset, creates training and validation splits, dynamically pads batches, and limits sequence length to control memory usage.',
           'Training is configured with gradient accumulation, weight decay, checkpointing, and automatic validation after each epoch. Fixed random seeds make runs more reproducible, while explicit padding and truncation logic handles GPT-2\'s lack of a default padding token and keeps inputs within practical memory limits.',
           'For the fine-tuned approach, GPT-2 processes each review and produces scores for the positive and negative classes. The application converts those scores into probabilities, displays the class with the higher confidence, and measures validation accuracy and loss so the model can be evaluated beyond individual predictions.',
-          'A Streamlit interface makes both classification approaches available outside the training script. Users can enter a review, select an approach, and inspect the resulting sentiment and confidence scores. Session state preserves a history of reviews classified during the current visit.',
+          'A vibe-coded Streamlit interface makes both classification approaches available outside the training script. Users can enter a review, select an approach, and inspect the resulting sentiment and confidence scores. Session state preserves a history of reviews classified during the current visit.',
           'The application automatically uses CUDA when a compatible GPU is available and falls back to the CPU when necessary. Model caching reduces repeated loading time, and the separation between training and inference code keeps the interactive application focused on prediction.',
         ],
       },
       {
-        heading: 'Technologies',
+        heading: 'Tech Stack',
         paragraphs: [
-          'Python, PyTorch, Hugging Face Transformers, GPT-2, Hugging Face Datasets, Streamlit, NumPy, and CUDA.',
+          'Hugging Face Transformers, GPT-2, Streamlit, CUDA ',
         ],
       },
     ],
