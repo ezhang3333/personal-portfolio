@@ -118,9 +118,18 @@ export const featuredProjects: Project[] = [
     githubNotice: 'This operating system was developed as part of a university course, so I cannot publish the source code in a public GitHub repository without violating university policy. Anyone who would like to verify my work is welcome to contact me and ask about the project :). I chose to feature it on my personal portfolio because the kernel contained approximately 7,000 lines of code, while only about 1,500 lines were provided at the beginning of the course. I wrote the remaining 5,500 lines, implementing the core operating-system functionality, including interrupts, the Platform-Level Interrupt Controller (PLIC), threads, processes, user programs, the shell, VirtIO, the backing device, the NGFS filesystem, and other essential kernel components.',
     body: [
       {
-        heading: 'Project Overview',
+        heading: 'Project Overview and Purpose',
         paragraphs: [
-          'OS-Lite is a RISC-V 64-bit operating system with processes, filesystems, drivers, and a UNIX-style shell.',
+          'OS-lite is a single-core multithreaded 64-bit RISC-V operating system that was supports all the basic functionality of a operating system at a toned down scale. The drivers we support are uart, rtc, virtio, vioblk (virtio block device), and viorng (entropy). All testing was done on a QEMU emulator and to learn more about the purpose of this project please click on the github icon. '
+        ],
+      },
+      {
+        heading: 'Implementation',
+        paragraphs: [
+          'OS-lite is very in-depth and I could talk about all the design decisions and implementation decisions endlessly but in a technical overview the kernal is meant to run on a single core with 512MB of RAM and will be multithreaded with preemptive multitasking. What I mean by that is that the internal timer will cause a thread to yield at a certain clock cycle rate but also the kernel itself can also cause context switches due to things like condition variables, locks, etc.',
+          'The main filesystem where all the user programs are stored is an NGFS FAT-style system that uses a virtual backing device (Vioblk) due to a lack of physical persistant storage device. A write-back cache is implemented in RAM for performance.',
+          'Threads and processes are preempted with syscalls like fork, exec, wait, exit. Our paging scheme is Sv39 and follow the RISC-V paging and flag architecture that can be found on their website.',
+          'The user space can run games like trek, rogue, zork, etc. With the help of syscalls, it was also possible to implement a shell that supports the basic shell commands like pipes, sequencing, background, redirection, cat, ls, wc, echo, rm, etc. '
         ],
       },
     ],
