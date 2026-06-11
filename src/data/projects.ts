@@ -18,6 +18,7 @@ export interface Project {
   imageAlt: string
   imagePosition?: string
   githubHref?: string
+  githubNotice?: string
   siteHref?: string
   body: ProjectBodySection[]
 }
@@ -114,6 +115,7 @@ export const featuredProjects: Project[] = [
     cardDescription: 'A RISC-V 64-bit operating system with processes, filesystems, drivers, and a UNIX-style shell',
     imageSrc: osLite,
     imageAlt: 'OS-Lite booting into the LUMON OS shell in QEMU',
+    githubNotice: 'This operating system was developed as part of a university course, so I cannot publish the source code in a public GitHub repository without violating university policy. Anyone who would like to verify my work is welcome to contact me and ask about the project :). I chose to feature it on my personal portfolio because the kernel contained approximately 7,000 lines of code, while only about 1,500 lines were provided at the beginning of the course. I wrote the remaining 5,500 lines, implementing the core operating-system functionality, including interrupts, the Platform-Level Interrupt Controller (PLIC), threads, processes, user programs, the shell, VirtIO, the backing device, the NGFS filesystem, and other essential kernel components.',
     body: [
       {
         heading: 'Project Overview',

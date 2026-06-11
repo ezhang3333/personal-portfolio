@@ -1,12 +1,27 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import githubIcon from '../assets/github-icon.png'
 import { getProjectBySlug } from '../data/projects'
 
 const route = useRoute()
+const isGithubNoticeOpen = ref(false)
 
 const project = computed(() => getProjectBySlug(String(route.params.slug)))
+
+function closeGithubNotice() {
+  isGithubNoticeOpen.value = false
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape') {
+    closeGithubNotice()
+  }
+}
+
+watch(() => route.params.slug, closeGithubNotice)
+onMounted(() => window.addEventListener('keydown', handleKeydown))
+onBeforeUnmount(() => window.removeEventListener('keydown', handleKeydown))
 
 function getParagraphParts(paragraph: string) {
   if (project.value?.slug !== 'quantum-portal') {
@@ -56,6 +71,15 @@ function getParagraphParts(paragraph: string) {
             >
               <img :src="githubIcon" alt="" class="github-icon" aria-hidden="true" />
             </a>
+            <button
+              v-else-if="project.githubNotice"
+              type="button"
+              class="story-action github-link github-notice-trigger"
+              aria-label="Why the OS-Lite GitHub repository is unavailable"
+              @click="isGithubNoticeOpen = true"
+            >
+              <img :src="githubIcon" alt="" class="github-icon" aria-hidden="true" />
+            </button>
             <RouterLink :to="{ name: 'all-projects' }" class="story-action back-link">
               Back to projects
             </RouterLink>
@@ -93,6 +117,34 @@ function getParagraphParts(paragraph: string) {
         </div>
       </div>
     </article>
+
+    <Teleport to="body">
+      <Transition name="modal">
+        <div
+          v-if="isGithubNoticeOpen && project.githubNotice"
+          class="github-modal-backdrop"
+          role="presentation"
+          @click.self="closeGithubNotice"
+        >
+          <section
+            class="github-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="github-modal-title"
+          >
+            <div class="github-modal-heading">
+              <img :src="githubIcon" alt="" class="github-modal-icon" aria-hidden="true" />
+              <p>Repository access</p>
+            </div>
+            <h2 id="github-modal-title">Why the source code is not public</h2>
+            <p>{{ project.githubNotice }}</p>
+            <button type="button" class="github-modal-close" autofocus @click="closeGithubNotice">
+              Close
+            </button>
+          </section>
+        </div>
+      </Transition>
+    </Teleport>
   </main>
 </template>
 
@@ -225,6 +277,15 @@ function getParagraphParts(paragraph: string) {
   opacity: 0.78;
 }
 
+.github-notice-trigger {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
 .github-link:hover,
 .github-link:focus-visible {
   opacity: 1;
@@ -235,6 +296,127 @@ function getParagraphParts(paragraph: string) {
   width: 1.15rem;
   height: 1.15rem;
   object-fit: contain;
+}
+
+.github-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(17, 16, 15, 0.48);
+  backdrop-filter: blur(4px);
+}
+
+.github-modal {
+  width: min(100%, 44rem);
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  border: 1px solid var(--line-soft);
+  border-radius: 0.5rem;
+  background: var(--bg);
+  box-shadow: 0 28px 80px rgba(40, 29, 21, 0.24);
+}
+
+.github-modal-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.github-modal-heading p {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.github-modal-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  object-fit: contain;
+}
+
+.github-modal h2 {
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.github-modal > p {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.4rem;
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.github-modal-close {
+  position: relative;
+  margin-top: 1.4rem;
+  padding: 0 0 0.3rem;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.github-modal-close::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+.github-modal-close:hover,
+.github-modal-close:focus-visible {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.github-modal-close:hover::after,
+.github-modal-close:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 180ms ease;
+}
+
+.modal-enter-active .github-modal,
+.modal-leave-active .github-modal {
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.modal-enter-from,
+.modal-leave-to,
+.modal-enter-from .github-modal,
+.modal-leave-to .github-modal {
+  opacity: 0;
+}
+
+.modal-enter-from .github-modal,
+.modal-leave-to .github-modal {
+  transform: translateY(0.75rem) scale(0.985);
 }
 
 .story-body {
@@ -340,7 +522,9 @@ function getParagraphParts(paragraph: string) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project-inline-link::after {
+  .project-inline-link::after,
+  .github-modal-backdrop,
+  .github-modal {
     transition: none;
   }
 }
