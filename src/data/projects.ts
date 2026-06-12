@@ -20,6 +20,7 @@ export interface Project {
   githubHref?: string
   githubNotice?: string
   siteHref?: string
+  siteNotice?: string
   body: ProjectBodySection[]
 }
 
@@ -84,6 +85,8 @@ export const featuredProjects: Project[] = [
     imageAlt: 'NFL fantasy breakout analytics screenshot',
     githubHref: 'https://github.com/ezhang3333/fantasy-football',
     siteHref: 'https://fantasy-football-tawny.vercel.app/',
+    siteNotice:
+      'The site may take 30 to 60 seconds to fully load on your first visit. The backend service pauses when inactive, so please give it a moment to start.',
     body: [
       {
         heading: 'Project Overview and Purpose',
