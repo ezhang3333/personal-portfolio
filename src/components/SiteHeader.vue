@@ -36,7 +36,7 @@ const isProjectsRoute = computed(() =>
 
         <div class="icon-group">
           <a
-            href="/EthanZhangsResume.pdf"
+            href="/EthanZhangResume.pdf"
             target="_blank"
             rel="noopener"
             class="icon-link"
