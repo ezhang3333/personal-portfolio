@@ -42,7 +42,7 @@ onMounted(async () => {
             <span class="text-highlight">Currently working on:</span><br>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
-              this project
+              personal accountability agent
             </span>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
