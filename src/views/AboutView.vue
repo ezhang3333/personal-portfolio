@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import nextIcon from '../assets/next-icon.png'
 
 const contributionCount = ref<number | null>(null)
+const contributionRefreshKey = new Date().toISOString().slice(0, 13)
+const contributionGraphSrc = computed(
+  () => `https://ghchart.rshah.org/6f4a33/ezhang3333?refresh=${contributionRefreshKey}`,
+)
 
 onMounted(async () => {
   try {
-    const res = await fetch('https://github-contributions-api.jogruber.de/v4/ezhang3333?y=last')
+    const params = new URLSearchParams({
+      y: 'last',
+      refresh: contributionRefreshKey,
+    })
+    const res = await fetch(
+      `https://github-contributions-api.jogruber.de/v4/ezhang3333?${params}`,
+      { cache: 'no-store' },
+    )
     const data = await res.json()
     contributionCount.value = data?.total?.lastYear ?? null
   } catch {
@@ -59,7 +70,7 @@ onMounted(async () => {
           </span>
         </h2>
         <img
-          src="https://ghchart.rshah.org/6f4a33/ezhang3333"
+          :src="contributionGraphSrc"
           alt="Ethan Zhang's GitHub contribution graph"
           class="contribution-graph"
         />
