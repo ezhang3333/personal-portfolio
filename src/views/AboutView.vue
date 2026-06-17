@@ -57,7 +57,11 @@ onMounted(async () => {
             </span>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
-              learning neovim (previously a VSCode user)
+              career source of truth app
+            </span>
+            <span class="working-item">
+              <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
+              learning neovim
             </span>
           </div>
         </div>
@@ -109,18 +113,19 @@ onMounted(async () => {
 
 .contribution {
   margin-top: auto;
+  width: 95%;
 }
 
 .contribution-title {
-  font-size: 1.25rem;
+  font-size: 1.1875rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.95rem;
 }
 
 .contribution-count {
-  margin-left: 0.6rem;
-  font-size: 0.95rem;
+  margin-left: 0.57rem;
+  font-size: 0.9025rem;
   font-weight: 500;
   color: var(--text-secondary);
 }
