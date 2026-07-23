@@ -86,7 +86,7 @@ export const featuredProjects: Project[] = [
     githubHref: 'https://github.com/ezhang3333/fantasy-football',
     siteHref: 'https://fantasy-football-tawny.vercel.app/',
     siteNotice:
-      'The site may take 30 to 60 seconds to fully load on your first visit. The backend service pauses when inactive, so please give it a moment to start.',
+      'This project uses free-tier hosting, so its backend may pause after seven days without traffic. If you hit a cold start, please give the site 30 to 60 seconds to wake up and try again. Thanks for being patient :)',
     body: [
       {
         heading: 'Project Overview and Purpose',
@@ -180,12 +180,13 @@ export const moreProjects: Project[] = [
     imagePosition: 'center center',
     githubHref: 'https://github.com/ezhang3333/quantum-data-portal',
     siteHref: 'https://quantum-data-portal.vercel.app/',
+    siteNotice:
+      'This project uses Supabase\'s free tier, which pauses the database after seven days without activity. The live site and its Google or Microsoft sign-in may not work until the backend is active again. Thanks for checking it out anyway :)',
     body: [
       {
         heading: 'Project Overview and Purpose',
         paragraphs: [
           'I developed this web-based data collection portal to support Quantum Match. The portal provides a reliable, user-friendly way to collect the structured biographies, headshots, and introductory videos needed to build the matching dataset. Instead of manually gathering and organizing profiles, the application creates a standardized pipeline for collecting, validating, and storing participant data.',
-          'Disclaimer: Due to Supabase free tier shutting down databases that go inactive after 7 days, viewing the live site might not work because the OAuth with Google and Microsoft wont be up and running. '
         ],
       },
       {

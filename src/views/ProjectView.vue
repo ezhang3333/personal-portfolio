@@ -30,6 +30,7 @@ import { featuredProjects } from '../data/projects'
           :image-alt="project.imageAlt"
           :image-position="project.imagePosition"
           :site-href="project.siteHref"
+          :site-notice="project.siteNotice"
         />
       </div>
     </section>

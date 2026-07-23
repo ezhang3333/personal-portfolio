@@ -2,10 +2,12 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import githubIcon from '../assets/github-icon.png'
+import LiveSiteNoticeModal from '../components/LiveSiteNoticeModal.vue'
 import { getProjectBySlug } from '../data/projects'
 
 const route = useRoute()
 const isGithubNoticeOpen = ref(false)
+const isLiveSiteNoticeOpen = ref(false)
 
 const project = computed(() => getProjectBySlug(String(route.params.slug)))
 
@@ -19,7 +21,10 @@ function handleKeydown(event: KeyboardEvent) {
   }
 }
 
-watch(() => route.params.slug, closeGithubNotice)
+watch(() => route.params.slug, () => {
+  closeGithubNotice()
+  isLiveSiteNoticeOpen.value = false
+})
 onMounted(() => window.addEventListener('keydown', handleKeydown))
 onBeforeUnmount(() => window.removeEventListener('keydown', handleKeydown))
 
@@ -52,33 +57,14 @@ function getParagraphParts(paragraph: string) {
           <h1>{{ project.title }}</h1>
 
           <nav class="story-actions" aria-label="Project links">
-            <span
-              v-if="project.siteHref && project.siteNotice"
-              class="site-link-with-notice"
-            >
-              <a
-                :href="project.siteHref"
-                target="_blank"
-                rel="noopener"
-                class="story-action"
-                aria-describedby="site-notice-tooltip"
-              >
-                View live site
-              </a>
-              <span id="site-notice-tooltip" class="site-notice-tooltip" role="tooltip">
-                <strong>Just a moment while we wake things up</strong>
-                {{ project.siteNotice }}
-              </span>
-            </span>
-            <a
-              v-else-if="project.siteHref"
-              :href="project.siteHref"
-              target="_blank"
-              rel="noopener"
-              class="story-action"
+            <button
+              v-if="project.siteHref"
+              type="button"
+              class="story-action live-site-notice-trigger"
+              @click="isLiveSiteNoticeOpen = true"
             >
               View live site
-            </a>
+            </button>
             <a
               v-if="project.githubHref"
               :href="project.githubHref"
@@ -163,6 +149,15 @@ function getParagraphParts(paragraph: string) {
         </div>
       </Transition>
     </Teleport>
+
+    <LiveSiteNoticeModal
+      v-if="project.siteHref"
+      :open="isLiveSiteNoticeOpen"
+      :href="project.siteHref"
+      :project-title="project.title"
+      :notice="project.siteNotice"
+      @close="isLiveSiteNoticeOpen = false"
+    />
   </main>
 </template>
 
@@ -267,8 +262,7 @@ function getParagraphParts(paragraph: string) {
   transition: transform 220ms ease;
 }
 
-.story-action + .story-action,
-.site-link-with-notice + .story-action {
+.story-action + .story-action {
   margin-left: 0.85rem;
   padding-left: 0.85rem;
   border-left: 1px solid #000;
@@ -305,55 +299,12 @@ function getParagraphParts(paragraph: string) {
   cursor: pointer;
 }
 
-.site-link-with-notice {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.site-notice-tooltip {
-  position: absolute;
-  top: calc(100% + 0.85rem);
-  left: 0;
-  z-index: 10;
-  width: min(20rem, calc(100vw - 3rem));
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--line-soft);
-  border-radius: 0.4rem;
-  background: var(--bg);
-  box-shadow: 0 14px 36px rgba(40, 29, 21, 0.16);
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.5;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-0.35rem);
-  transition:
-    opacity 160ms ease,
-    transform 160ms ease;
-}
-
-.site-notice-tooltip::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 1.25rem;
-  border: 0.4rem solid transparent;
-  border-bottom-color: var(--bg);
-}
-
-.site-notice-tooltip strong {
-  display: block;
-  margin-bottom: 0.3rem;
-  color: var(--text-primary);
-  font-size: 0.82rem;
-}
-
-.site-link-with-notice:hover .site-notice-tooltip,
-.site-link-with-notice:focus-within .site-notice-tooltip {
-  opacity: 1;
-  transform: translateY(0);
+.live-site-notice-trigger {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
 }
 
 .github-link:hover,
@@ -593,7 +544,6 @@ function getParagraphParts(paragraph: string) {
 
 @media (prefers-reduced-motion: reduce) {
   .project-inline-link::after,
-  .site-notice-tooltip,
   .github-modal-backdrop,
   .github-modal {
     transition: none;

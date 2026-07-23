@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import LiveSiteNoticeModal from './LiveSiteNoticeModal.vue'
 
 defineProps<{
   slug: string
@@ -9,7 +11,10 @@ defineProps<{
   imageAlt: string
   imagePosition?: string
   siteHref?: string
+  siteNotice?: string
 }>()
+
+const isLiveSiteNoticeOpen = ref(false)
 </script>
 
 <template>
@@ -34,17 +39,25 @@ defineProps<{
         >
           More details
         </RouterLink>
-        <a
+        <button
           v-if="siteHref"
-          :href="siteHref"
-          target="_blank"
-          rel="noopener"
+          type="button"
           class="project-button project-button-primary"
+          @click="isLiveSiteNoticeOpen = true"
         >
           View site
-        </a>
+        </button>
       </div>
     </div>
+
+    <LiveSiteNoticeModal
+      v-if="siteHref"
+      :open="isLiveSiteNoticeOpen"
+      :href="siteHref"
+      :project-title="title"
+      :notice="siteNotice"
+      @close="isLiveSiteNoticeOpen = false"
+    />
   </article>
 </template>
 
@@ -143,12 +156,14 @@ defineProps<{
   background: transparent;
   color: #fff;
   font-size: 0.88rem;
+  font-family: inherit;
   font-weight: 400;
   line-height: 1;
   transition:
     color 180ms ease,
     opacity 180ms ease,
     transform 180ms ease;
+  cursor: pointer;
 }
 
 .project-button::after {

@@ -38,6 +38,7 @@ onMounted(async () => {
           :image-alt="project.imageAlt"
           :image-position="project.imagePosition"
           :site-href="project.siteHref"
+          :site-notice="project.siteNotice"
         />
       </div>
 
@@ -57,6 +58,7 @@ onMounted(async () => {
             :image-alt="project.imageAlt"
             :image-position="project.imagePosition"
             :site-href="project.siteHref"
+            :site-notice="project.siteNotice"
           />
         </div>
       </section>
