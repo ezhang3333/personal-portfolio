@@ -57,7 +57,7 @@ onMounted(async () => {
             </span>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
-              career source of truth app
+              building production level kubernetes cluster
             </span>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
