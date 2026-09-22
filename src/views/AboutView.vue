@@ -53,15 +53,11 @@ onMounted(async () => {
             <span class="text-highlight">Currently working on:</span><br>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
-              personal accountability agent
+              Nvidia AI Cluster Runtime
             </span>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
-              building production level kubernetes cluster
-            </span>
-            <span class="working-item">
-              <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
-              learning neovim
+              Microsoft Garnet
             </span>
           </div>
         </div>

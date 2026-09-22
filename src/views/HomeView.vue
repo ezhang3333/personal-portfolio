@@ -12,14 +12,12 @@ import sketchHeadshot from '../assets/sketch_headshot.png'
         <h1>Ethan Zhang</h1>
         <p class="hero-role">Software Engineer at Onshape by PTC</p>
         <p class="hero-bio">
-          <strong>2 years</strong> of scaling full-stack web applications and
-          <span class="text-highlight">building microservices.</span> 
-          Passionate about maximizing my efficiency as a software 
-          engineer without deteriorating the level of code produced.
-          Constantly trying to build
+          Building production software for a cloud-native CAD and PDM platform. Outside of work, I
+          contribute to open-source
           <RouterLink :to="{ name: 'projects' }" class="projects-link">projects</RouterLink>
-          from the ground up
-          that target both personal and globally unsolved problems.
+          including
+          <a href="https://github.com/NVIDIA/aicr" target="_blank" rel="noopener noreferrer" class="projects-link">NVIDIA AICR</a> and
+          <a href="https://github.com/microsoft/garnet" target="_blank" rel="noopener noreferrer" class="projects-link">Microsoft Garnet</a>.
         </p>
       </div>
     </div>
