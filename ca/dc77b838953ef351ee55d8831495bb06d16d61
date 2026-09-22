@@ -1,0 +1,23 @@
+src/views/AboutView.vue
+  s_8d10cfaa93e0c6::t_f721601da4244f 56,60
+src/views/HomeView.vue
+  s_8d10cfaa93e0c6::t_4d3145f014d079 15-16
+  s_8d10cfaa93e0c6::t_ea20a225adecc9 19
+  s_8d10cfaa93e0c6::t_8cd11fb54e7b95 18,20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "cadc77b838953ef351ee55d8831495bb06d16d61",
+  "prompts": {},
+  "sessions": {
+    "s_8d10cfaa93e0c6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f3923c39dffe2Pgwd5unr2i59A",
+        "model": "muse-spark-1.3-contributor-free"
+      },
+      "human_author": "Ethan Zhang <ezhang3333@gmail.com>"
+    }
+  }
+}
