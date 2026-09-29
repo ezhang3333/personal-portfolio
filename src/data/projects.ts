@@ -104,12 +104,6 @@ export const openSourceProjects: Project[] = [
             description:
               'Fixed a checkpoint cleanup bug in the cluster replication code. A newer checkpoint can reuse an older checkpoint\'s index, and cleanup stopped at that shared index after already deleting the older log. That left a stale checkpoint listed, and later cleanups read the missing log and skipped truncation. The fix retires the old entry while keeping the shared index, with a regression test covering three successive checkpoints.',
           },
-          {
-            label: 'PR #2131',
-            href: 'https://github.com/microsoft/garnet/pull/2131',
-            description:
-              'Open pull request adding Redis-compatible CLIENT PAUSE, CLIENT UNPAUSE, and SHUTDOWN commands. Pausing blocks the applicable client commands while keeping expiration and background maintenance from modifying data, and shutdown coordinates write pausing, replica synchronization, persistence, and host termination.',
-          },
         ],
       },
       {
