@@ -1,7 +1,7 @@
 import loanMatch from '../assets/loan-match.png'
 import microsoftGarnet from '../assets/microsoft-garnet.png'
 import nflFantasyBreakout from '../assets/nfl-fantasy-breakout.png'
-import nvidiaAicr from '../assets/nvidia-aicr.png'
+import nvidiaAicr from '../assets/nvidia-aicr.jpg'
 import osLite from '../assets/os-lite.svg'
 import quantumDataPortal from '../assets/quantum-data-portal.png'
 import quantumMatch from '../assets/quantum-match.png'
@@ -39,8 +39,8 @@ export const openSourceProjects: Project[] = [
     title: 'NVIDIA AICR',
     cardDescription: 'Open-source tooling for optimized, validated, and reproducible GPU-accelerated AI runtimes in Kubernetes',
     imageSrc: nvidiaAicr,
-    imageAlt: 'NVIDIA logo on a building',
-    imagePosition: 'center center',
+    imageAlt: 'NVIDIA logo on a stone wall outside an office building',
+    imagePosition: 'center 50%',
     githubHref: 'https://github.com/NVIDIA/aicr',
     body: [
       {
