@@ -1,0 +1,45 @@
+src/views/HomeView.vue
+  s_8ae757c30c28f0::t_1549cb62e96b1e 90
+  s_8ae757c30c28f0::t_506d627468da07 19-20,89
+  s_8ae757c30c28f0::t_6c97b68e2eaf78 91
+  s_8ae757c30c28f0::t_78ddff15021d69 92-93
+src/views/ProjectDetailView.vue
+  s_8ae757c30c28f0::t_341fadcf1b8b85 6,13-15,90
+  s_8ae757c30c28f0::t_9821d61771f07d 104-107,109-110,525
+  s_8ae757c30c28f0::t_6fb34c9797a25d 227
+  s_8ae757c30c28f0::t_c2101c1dc2c623 522-523,526-529,534-536
+  s_8ae757c30c28f0::t_a5bd5f4f6a9f50 530-533,539
+  s_8ae757c30c28f0::t_fc772c073b79c1 108,524,537-538
+  s_8ae757c30c28f0::t_4672678fab36bf 540
+src/views/ProjectView.vue
+  s_8ae757c30c28f0::t_991b897dc5cb20 61,82-83,194
+  s_8ae757c30c28f0::t_023816e2a18544 5,10,12-30,88-94
+  s_8ae757c30c28f0::t_b5448a8b13afa3 33
+  s_8ae757c30c28f0::t_3d1b989ea07926 31
+  s_8ae757c30c28f0::t_b64d4af52dab9a 95
+src/data/projects.ts
+  s_8ae757c30c28f0::t_8044a6d0052b02 201-203
+  s_8ae757c30c28f0::t_023816e2a18544 36-41,44-53,75-86,89-98,113-122,339
+  s_8ae757c30c28f0::t_c2101c1dc2c623 10-12,14-15,19,55,74,100
+  s_8ae757c30c28f0::t_fc772c073b79c1 13,54,56-73,99,101-112
+  s_8ae757c30c28f0::t_ed960729d30544 2,4,42-43,87-88
+src/views/AllProjectsView.vue
+  s_8ae757c30c28f0::t_b5448a8b13afa3 4,12,20
+  s_8ae757c30c28f0::t_991b897dc5cb20 38,46-47,132
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f3b02737c675f066d2f2310616d503e492b952a1",
+  "prompts": {},
+  "sessions": {
+    "s_8ae757c30c28f0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fc9bd65d-5c7d-40e3-80a8-7339e3074420",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Ethan Zhang <ezhang3333@gmail.com>"
+    }
+  }
+}
