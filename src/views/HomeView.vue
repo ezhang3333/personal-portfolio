@@ -16,8 +16,8 @@ import sketchHeadshot from '../assets/sketch_headshot.png'
           contribute to open-source
           <RouterLink :to="{ name: 'projects' }" class="projects-link">projects</RouterLink>
           including
-          <a href="https://github.com/NVIDIA/aicr" target="_blank" rel="noopener noreferrer" class="projects-link">NVIDIA AICR</a> and
-          <a href="https://github.com/microsoft/garnet" target="_blank" rel="noopener noreferrer" class="projects-link">Microsoft Garnet</a>.
+          <strong class="open-source-name">NVIDIA AICR</strong> and
+          <strong class="open-source-name">Microsoft Garnet</strong>.
         </p>
       </div>
     </div>
@@ -84,6 +84,11 @@ import sketchHeadshot from '../assets/sketch_headshot.png'
 
 .text-highlight {
   color: var(--accent);
+}
+
+.open-source-name {
+  color: color-mix(in srgb, var(--accent) 88%, white);
+  font-weight: 500;
 }
 
 .projects-link {

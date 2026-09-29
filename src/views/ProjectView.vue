@@ -2,16 +2,35 @@
 import { RouterLink } from 'vue-router'
 import ProjectCard from '../components/ProjectCard.vue'
 import nextIcon from '../assets/next-icon.png'
-import { featuredProjects } from '../data/projects'
+import { featuredProjects, openSourceProjects } from '../data/projects'
 </script>
 
 <template>
   <main class="project-page">
-    <section class="section-shell" aria-labelledby="projects-title">
+    <section class="section-shell open-source-section" aria-labelledby="open-source-title">
       <div class="project-heading">
-        <h1 class="project-header" id="projects-title">Projects</h1>
+        <h1 class="project-header" id="open-source-title">Open Source</h1>
+      </div>
+
+      <div class="project-grid">
+        <ProjectCard
+          v-for="project in openSourceProjects"
+          :key="project.slug"
+          :slug="project.slug"
+          :title="project.title"
+          :description="project.cardDescription"
+          :image-src="project.imageSrc"
+          :image-alt="project.imageAlt"
+          :image-position="project.imagePosition"
+        />
+      </div>
+    </section>
+
+    <section class="section-shell projects-section" aria-labelledby="projects-title">
+      <div class="project-heading">
+        <h1 class="project-header" id="projects-title">Personal</h1>
         <RouterLink
-          :to="{ name: 'all-projects', hash: '#more-projects' }"
+          :to="{ name: 'all-projects' }"
           class="all-projects-link"
         >
           <span>More Projects</span>
@@ -39,6 +58,7 @@ import { featuredProjects } from '../data/projects'
 
 <style scoped>
 .project-page {
+  --page-zoom: 0.9;
   height: calc(100dvh - var(--header-height));
   overflow-y: auto;
   overflow-x: hidden;
@@ -59,9 +79,18 @@ import { featuredProjects } from '../data/projects'
 }
 
 .section-shell {
-  width: min(1320px, calc(100% - 3rem));
+  zoom: var(--page-zoom);
+  width: min(1320px, calc((100% - 3rem) / var(--page-zoom)));
   margin: 0 auto;
   padding: 2.5rem 0 6rem;
+}
+
+.open-source-section {
+  padding-bottom: 0;
+}
+
+.projects-section {
+  padding-top: 4rem;
 }
 
 .project-heading {
@@ -162,7 +191,7 @@ h1 {
   }
 
   .section-shell {
-    width: min(100% - 1.5rem, 650px);
+    width: min((100% - 1.5rem) / var(--page-zoom), 650px);
     padding: 3rem 0 4rem;
   }
 

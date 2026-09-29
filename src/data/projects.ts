@@ -1,13 +1,22 @@
 import loanMatch from '../assets/loan-match.png'
+import microsoftGarnet from '../assets/microsoft-garnet.png'
 import nflFantasyBreakout from '../assets/nfl-fantasy-breakout.png'
+import nvidiaAicr from '../assets/nvidia-aicr.png'
 import osLite from '../assets/os-lite.svg'
 import quantumDataPortal from '../assets/quantum-data-portal.png'
 import quantumMatch from '../assets/quantum-match.png'
 import toneClassifier from '../assets/tone-classifier.png'
 
+export interface ProjectBodyLink {
+  label: string
+  href: string
+  description: string
+}
+
 export interface ProjectBodySection {
   heading: string
   paragraphs: string[]
+  links?: ProjectBodyLink[]
 }
 
 export interface Project {
@@ -23,6 +32,93 @@ export interface Project {
   siteNotice?: string
   body: ProjectBodySection[]
 }
+
+export const openSourceProjects: Project[] = [
+  {
+    slug: 'nvidia-aicr',
+    title: 'NVIDIA AICR',
+    cardDescription: 'Open-source tooling for optimized, validated, and reproducible GPU-accelerated AI runtimes in Kubernetes',
+    imageSrc: nvidiaAicr,
+    imageAlt: 'NVIDIA logo on a building',
+    imagePosition: 'center center',
+    githubHref: 'https://github.com/NVIDIA/aicr',
+    body: [
+      {
+        heading: 'Project Overview',
+        paragraphs: [
+          'AI Cluster Runtime (AICR) is NVIDIA\'s open-source tooling for building optimized, validated, and reproducible GPU-accelerated AI runtimes in Kubernetes. It resolves a set of criteria such as cloud service, operating system, and accelerator into a recipe describing the components and constraints a cluster needs.',
+        ],
+      },
+      {
+        heading: 'My Contributions',
+        paragraphs: [],
+        links: [
+          {
+            label: 'PR #2730',
+            href: 'https://github.com/NVIDIA/aicr/pull/2730',
+            description:
+              'Fixed a gap in the recipe data where EKS and AKS could not resolve an operating system at the service level the way GKE could. Requesting Ubuntu on those services was rejected for lacking an accelerator, and omitting the flag silently dropped the OS constraints. I added service-level Ubuntu overlays for both so the behavior matches GKE.',
+          },
+          {
+            label: 'PR #2929',
+            href: 'https://github.com/NVIDIA/aicr/pull/2929',
+            description:
+              'Added a guard that keeps the Prometheus Operator and its CRDs on the same application version. The two charts version independently, so a partial bump could pair a newer operator with stale CRDs and only fail once Kubernetes reconciled the resources. The guard catches this offline.',
+          },
+          {
+            label: 'PR #2575',
+            href: 'https://github.com/NVIDIA/aicr/pull/2575',
+            description:
+              'Added a merge gate that checks the examples table in the Go library guide against the examples actually defined in the client package, and filled in the rows it found missing. This keeps the documentation from drifting behind the code.',
+          },
+        ],
+      },
+      {
+        heading: 'Tech Stack',
+        paragraphs: ['Go, Kubernetes, Helm, YAML'],
+      },
+    ],
+  },
+  {
+    slug: 'microsoft-garnet',
+    title: 'Microsoft Garnet',
+    cardDescription: 'A high-performance remote cache-store from Microsoft Research that works with existing Redis clients',
+    imageSrc: microsoftGarnet,
+    imageAlt: 'Microsoft logo on a glowing glass cube',
+    imagePosition: 'center center',
+    githubHref: 'https://github.com/microsoft/garnet',
+    body: [
+      {
+        heading: 'Project Overview',
+        paragraphs: [
+          'Garnet is a remote cache-store from Microsoft Research that offers strong throughput and latency, scalability, storage, recovery, cluster sharding, key migration, and replication. It speaks the Redis protocol, so existing Redis clients can talk to it.',
+        ],
+      },
+      {
+        heading: 'My Contributions',
+        paragraphs: [],
+        links: [
+          {
+            label: 'PR #2144',
+            href: 'https://github.com/microsoft/garnet/pull/2144',
+            description:
+              'Fixed a checkpoint cleanup bug in the cluster replication code. A newer checkpoint can reuse an older checkpoint\'s index, and cleanup stopped at that shared index after already deleting the older log. That left a stale checkpoint listed, and later cleanups read the missing log and skipped truncation. The fix retires the old entry while keeping the shared index, with a regression test covering three successive checkpoints.',
+          },
+          {
+            label: 'PR #2131',
+            href: 'https://github.com/microsoft/garnet/pull/2131',
+            description:
+              'Open pull request adding Redis-compatible CLIENT PAUSE, CLIENT UNPAUSE, and SHUTDOWN commands. Pausing blocks the applicable client commands while keeping expiration and background maintenance from modifying data, and shutdown coordinates write pausing, replica synchronization, persistence, and host termination.',
+          },
+        ],
+      },
+      {
+        heading: 'Tech Stack',
+        paragraphs: ['C#, .NET, RESP'],
+      },
+    ],
+  },
+]
 
 export const featuredProjects: Project[] = [
   {
@@ -102,6 +198,9 @@ export const featuredProjects: Project[] = [
       },
     ],
   },
+]
+
+export const moreProjects: Project[] = [
   {
     slug: 'nfl-breakout',
     title: 'NFL Breakout',
@@ -168,9 +267,6 @@ export const featuredProjects: Project[] = [
       },
     ],
   },
-]
-
-export const moreProjects: Project[] = [
   {
     slug: 'quantum-portal',
     title: 'Quantum Portal',
@@ -240,7 +336,7 @@ export const moreProjects: Project[] = [
   },
 ]
 
-export const projects: Project[] = [...featuredProjects, ...moreProjects]
+export const projects: Project[] = [...openSourceProjects, ...featuredProjects, ...moreProjects]
 
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug)

@@ -3,13 +3,16 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import githubIcon from '../assets/github-icon.png'
 import LiveSiteNoticeModal from '../components/LiveSiteNoticeModal.vue'
-import { getProjectBySlug } from '../data/projects'
+import { getProjectBySlug, moreProjects } from '../data/projects'
 
 const route = useRoute()
 const isGithubNoticeOpen = ref(false)
 const isLiveSiteNoticeOpen = ref(false)
 
 const project = computed(() => getProjectBySlug(String(route.params.slug)))
+const backRouteName = computed(() =>
+  moreProjects.some((item) => item.slug === project.value?.slug) ? 'all-projects' : 'projects',
+)
 
 function closeGithubNotice() {
   isGithubNoticeOpen.value = false
@@ -84,7 +87,7 @@ function getParagraphParts(paragraph: string) {
             >
               <img :src="githubIcon" alt="" class="github-icon" aria-hidden="true" />
             </button>
-            <RouterLink :to="{ name: 'all-projects' }" class="story-action back-link">
+            <RouterLink :to="{ name: backRouteName }" class="story-action back-link">
               Back to projects
             </RouterLink>
           </nav>
@@ -98,6 +101,13 @@ function getParagraphParts(paragraph: string) {
             class="story-section"
           >
             <h2>{{ section.heading }}</h2>
+            <ul v-if="section.links" class="story-links">
+              <li v-for="link in section.links" :key="link.href">
+                <a :href="link.href" target="_blank" rel="noopener noreferrer" class="project-inline-link">
+                  {{ link.label }}
+                </a>: {{ link.description }}
+              </li>
+            </ul>
             <p
               v-for="(paragraph, paragraphIndex) in section.paragraphs"
               :key="`${project.slug}-${sectionIndex}-${paragraphIndex}`"
@@ -214,7 +224,7 @@ function getParagraphParts(paragraph: string) {
 
 .story-header,
 .story-body {
-  width: min(100%, 75ch);
+  width: 100%;
 }
 
 .story-header h1 {
@@ -507,6 +517,25 @@ function getParagraphParts(paragraph: string) {
   padding: 0.8rem 1rem;
   border-radius: 0.4rem;
   background: var(--bg-warm);
+}
+
+.story-links {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.story-links:last-child {
+  margin-bottom: 0;
+}
+
+.story-links li {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-wrap: pretty;
 }
 
 .project-inline-link {
