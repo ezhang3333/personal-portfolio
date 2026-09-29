@@ -1,19 +1,7 @@
 <script setup lang="ts">
-import { nextTick, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
-import { useRoute } from 'vue-router'
 import ProjectCard from '../components/ProjectCard.vue'
-import { featuredProjects, moreProjects } from '../data/projects'
-
-const route = useRoute()
-
-onMounted(async () => {
-  if (route.hash !== '#more-projects') return
-
-  await nextTick()
-  document.querySelector(route.hash)?.scrollIntoView({ behavior: 'smooth' })
-})
-
+import { moreProjects } from '../data/projects'
 </script>
 
 <template>
@@ -21,7 +9,7 @@ onMounted(async () => {
     <section class="section-shell" aria-labelledby="all-projects-title">
       <div class="project-heading">
         <div>
-          <h1 id="all-projects-title" class="project-header">Projects</h1>
+          <h1 id="all-projects-title" class="project-header">More Projects</h1>
         </div>
 
         <RouterLink to="/projects" class="back-link">Back to latest</RouterLink>
@@ -29,7 +17,7 @@ onMounted(async () => {
 
       <div class="project-grid">
         <ProjectCard
-          v-for="project in featuredProjects"
+          v-for="project in moreProjects"
           :key="project.slug"
           :slug="project.slug"
           :title="project.title"
@@ -41,33 +29,13 @@ onMounted(async () => {
           :site-notice="project.siteNotice"
         />
       </div>
-
-      <section id="more-projects" class="more-projects" aria-labelledby="more-projects-title">
-        <div class="section-heading">
-          <h2 id="more-projects-title">More Projects</h2>
-        </div>
-
-        <div class="project-grid">
-          <ProjectCard
-            v-for="project in moreProjects"
-            :key="project.slug"
-            :slug="project.slug"
-            :title="project.title"
-            :description="project.cardDescription"
-            :image-src="project.imageSrc"
-            :image-alt="project.imageAlt"
-            :image-position="project.imagePosition"
-            :site-href="project.siteHref"
-            :site-notice="project.siteNotice"
-          />
-        </div>
-      </section>
     </section>
   </main>
 </template>
 
 <style scoped>
 .project-page {
+  --page-zoom: 0.9;
   height: calc(100dvh - var(--header-height));
   overflow-y: auto;
   overflow-x: hidden;
@@ -75,7 +43,8 @@ onMounted(async () => {
 }
 
 .section-shell {
-  width: min(1320px, calc(100% - 3rem));
+  zoom: var(--page-zoom);
+  width: min(1320px, calc((100% - 3rem) / var(--page-zoom)));
   margin: 0 auto;
   padding: 3.5rem 0 6rem;
 }
@@ -148,20 +117,6 @@ h1 {
   gap: 20px;
 }
 
-.more-projects {
-  padding-top: 5rem;
-}
-
-.section-heading {
-  margin-bottom: 1.6rem;
-}
-
-.section-heading h2 {
-  font-size: 60px;
-  line-height: 0.95;
-  letter-spacing: -0.045em;
-}
-
 @media (max-width: 1120px) {
   .project-grid {
     grid-template-columns: minmax(0, 650px);
@@ -174,7 +129,7 @@ h1 {
   }
 
   .section-shell {
-    width: min(100% - 1.5rem, 650px);
+    width: min((100% - 1.5rem) / var(--page-zoom), 650px);
     padding: 3rem 0 4rem;
   }
 

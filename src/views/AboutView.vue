@@ -38,13 +38,10 @@ onMounted(async () => {
             Beyond my short bio on the
             <RouterLink :to="{ name: 'home' }" class="about-link">Home page</RouterLink>,
             I like to explore the middle ground between keeping up with the boundary of agentic coding,
-            learning and gaining experience as an entry-level dev, and maximizing the efficiency and level of code produced. 
+            learning and gaining experience as an early career dev, and maximizing the efficiency and level of code produced. 
             <br/>
             <br/>
-            My belief is that there is benefit and experience that coding from scratch can only give you,
-            but there is also a need for software developers to be on the
-            edge of agentic coding and AI usage as the frontier moves so fast nowadays and there are always ways to
-            improve your workflow and efficiency as a developer.
+            Nowadays it feels like there is a new model, a new way to improve throughput, a new github repository, or a new research paper on the benefits of X, Y, and Z every other day. There is only so much time in a single day to manually test everything but it is the responsibility of the dev to try and be up to date and possibly innovate. You cannot know something is good or bad until you give it a fair shot.
           </p>
           <p>
 
@@ -53,15 +50,11 @@ onMounted(async () => {
             <span class="text-highlight">Currently working on:</span><br>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
-              personal accountability agent
+              Nvidia AI Cluster Runtime
             </span>
             <span class="working-item">
               <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
-              building production level kubernetes cluster
-            </span>
-            <span class="working-item">
-              <img :src="nextIcon" alt="" class="working-icon" aria-hidden="true" />
-              learning neovim
+              Microsoft Garnet
             </span>
           </div>
         </div>
